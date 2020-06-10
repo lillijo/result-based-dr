@@ -22,12 +22,12 @@ export default class SelectionGridDetail extends React.Component {
   }
   renderHover(hovered, mouseLocation) {
     return (
-      hovered && (
+      hovered !== false && (
         <HoverPopover
           width={"15em"}
           height="20px"
           locationX={mouseLocation[0]}
-          locationY={mouseLocation[1]}
+          locationY={mouseLocation[1] - 20}
         >
           <p
             style={{
@@ -42,7 +42,7 @@ export default class SelectionGridDetail extends React.Component {
               padding: "5px 10px"
             }}
           >
-            <label>{hovered}</label>
+            <label>{this.props.selectedOrdering.titles[hovered]}</label>
           </p>
         </HoverPopover>
       )
@@ -65,6 +65,21 @@ export default class SelectionGridDetail extends React.Component {
                 "translate(" + this.getPointLocation(project, scale) + ")"
               }
               key={i + "punkt"}
+              onMouseOver={evt => {
+                this.setState({
+                  hovered: i,
+                  mouseLocation: [
+                    evt.nativeEvent.clientX,
+                    evt.nativeEvent.clientY
+                  ]
+                });
+              }}
+              onMouseLeave={() => {
+                this.setState({
+                  hovered: false,
+                  mouseLocation: [0, 0]
+                });
+              }}
             >
               <UnselectedIcon
                 width={width / 30}
@@ -77,20 +92,21 @@ export default class SelectionGridDetail extends React.Component {
                 cursor="POINTER"
                 stroke={"transparent"}
                 fill={getFieldColor(selectedOrdering.fbs[i])}
-                onMouseOver={evt => {
-                  this.setState({
-                    hovered: selectedOrdering.titles[i],
-                    mouseLocation: [
-                      evt.nativeEvent.clientX,
-                      evt.nativeEvent.clientY
-                    ]
-                  });
-                }}
-                onMouseLeave={() => {
-                  this.setState({
-                    hovered: false,
-                    mouseLocation: [0, 0]
-                  });
+              />
+              <SelectedIcon
+                width={width / 30}
+                height={width / 30}
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                x="0"
+                y="0"
+                viewBox="0 0 100 100"
+                cursor="POINTER"
+                stroke={"transparent"}
+                fill={getFieldColor(selectedOrdering.fbs[i])}
+                style={{
+                  opacity: this.state.hovered === i ? "1" : "0",
+                  transition: "opacity 800ms"
                 }}
               />
             </g>

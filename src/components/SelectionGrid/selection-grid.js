@@ -13,15 +13,12 @@ const mapStateToProps = state => {
   const allOrderings = orderings.map((ordering, index) => [index, ordering]);
   const size = state.main.gridSize;
   const samples = allOrderings
-    .sort((a, b) => (a[1].simFirst > b[1].simFirst ? 1 : -1))
-    .splice(0, size * size)
-    .sort((a, b) => (a[1].combDist > b[1].combDist ? 1 : -1));
+    .sort((a, b) => (a[1].x_tsne < b[1].x_tsne ? 1 : -1))
+    .splice(0, size * size);
   let grid = [];
   while (grid.length < size) {
     grid.push(
-      samples
-        .splice(0, size)
-        .sort((a, b) => (a[1].stability > b[1].stability ? 1 : -1))
+      samples.splice(0, size).sort((a, b) => (a[1].perp > b[1].perp ? 1 : -1))
     );
   }
 

@@ -68,7 +68,7 @@ export default class SelectionGridDetail extends React.Component {
                       ")"
                     }
                     key={i + "punkt"}
-                    r={10 / size}
+                    r={11 / size}
                     version="1.1"
                     xmlns="http://www.w3.org/2000/svg"
                     x="0"
@@ -99,7 +99,11 @@ export default class SelectionGridDetail extends React.Component {
                         "Perplexity: " +
                         ord[1].perp +
                         " Learning rate: " +
-                        ord[1].lr,
+                        ord[1].lr +
+                        " tsne: " +
+                        ord[1].x_tsne +
+                        " combDist: " +
+                        ord[1].combDist,
                       mouseLocation: [
                         evt.nativeEvent.clientX,
                         evt.nativeEvent.clientY
