@@ -23,7 +23,7 @@ const countOffsetFromArc = scale => 0.025 * scale;
 const connectionOffsetFromArc = scale => -0.02 * scale;
 const circleScaling = scale => 0.02 * scale;
 const strokeWidth = scale => 0.001 * scale;
-const contoursSize = 200;
+const contoursSize = 50;
 
 /* splitting titles of categories and
 infrastructure to fit in outer circle */
@@ -53,12 +53,9 @@ export default class ClusterMapView extends React.Component {
   // translate mappoint of projects to current screen size
   getPointLocation = (pt, width, height) => {
     const [x, y] = pt;
-    const normalizedX = x * 0.9;
-    const normalizedY = y * 0.9;
-
     return [
-      normalizedX * clusterSize(this.scale) + clusterPosX(width, this.scale),
-      normalizedY * clusterSize(this.scale) + clusterPosY(height, this.scale)
+      x * 0.9 * clusterSize(this.scale) + clusterPosX(width, this.scale),
+      y * 0.9 * clusterSize(this.scale) + clusterPosY(height, this.scale)
     ];
   };
 
@@ -82,7 +79,7 @@ export default class ClusterMapView extends React.Component {
           width={"15em"}
           height="20px"
           locationX={mouseLocation[0]}
-          locationY={mouseLocation[1] - 30}
+          locationY={mouseLocation[1] - 50}
         >
           <p
             style={{
@@ -117,7 +114,6 @@ export default class ClusterMapView extends React.Component {
       highlightedInfra,
       highlightedCats,
       highlightedProjects,
-      clusterData,
       isAnyClicked,
       uncertaintyOn,
       uncertaintyHighlighted,
@@ -126,7 +122,9 @@ export default class ClusterMapView extends React.Component {
       filteredProjects,
       labels,
       filteredLabels,
-      topography
+      topography,
+      selectedOrdering,
+      clusterData
     } = this.props;
     this.scale = Math.min(height, width);
     const scale = this.scale;
@@ -168,12 +166,12 @@ export default class ClusterMapView extends React.Component {
             <ClusterContoursMap
               width={width}
               height={height}
-              topography={topography}
               contoursSize={contoursSize}
               clusterSize={clusterSize}
               clusterX={clusterPosX}
               clusterY={clusterPosY}
               uncertaintyHighlighted={uncertaintyHighlighted}
+              selectedOrdering={selectedOrdering}
             />
           )}
           <g>

@@ -111,9 +111,9 @@ export const initialState = {
   legendHovered: "none",
   uncertaintyOn: false,
   uncertaintyHighlighted: false,
+  orderings: locations,
   selectedOrdering: "1",
   gridSize: 5,
-  clusterData: undefined,
   isDataLoaded: { data: false, samples: false },
   isDataProcessed: false,
   sideBarComponent: <FilterPanel />
@@ -308,7 +308,6 @@ const updateData = (state, action) => ({
   continents: continents,
   missingprojects: action.value.missingprojects,
   formats: action.value.formats.filter(format => format.ktas.length > 1),
-  clusterData: action.value.cluster_topography,
   isDataLoaded: { ...state.isDataLoaded, data: true }
 });
 
@@ -330,8 +329,8 @@ const processAllData = state => {
     (project, index) => ({
       ...project,
       mappoint: [
-        locations[state.selectedOrdering].projects[index][0],
-        locations[state.selectedOrdering].projects[index][1]
+        state.orderings[state.selectedOrdering].projects[index][0],
+        state.orderings[state.selectedOrdering].projects[index][1]
       ]
     })
   );
@@ -345,12 +344,6 @@ const processAllData = state => {
   const processedCollections = processCollections(processedProjects, state);
   const processedMissingProjects = processMissingProjects(state);
   const processedInstState = processInstitutions(state);
-
-  var unflattened = [];
-  while (state.clusterData.length > 0)
-    unflattened.push(state.clusterData.splice(0, 200));
-  const processedClusterData = unflattened.reverse().flat();
-
   const newState = {
     projects: linkCatsToProjectsData(
       processedProjects,
@@ -361,7 +354,6 @@ const processAllData = state => {
     targetgroups: processedTargetgroups,
     infrastructures: processedInfrastructures,
     collections: processedCollections,
-    clusterData: processedClusterData,
     missingprojects: processedMissingProjects,
     institutions: processedInstState.institutions,
     continents: processedInstState.continents,
@@ -640,14 +632,15 @@ const resetPage = state => {
   } else {
     window.open(window.location.pathname, "_self");
   }
+  return state;
 };
 
 const selectVis = (state, action) => {
   const processedProjects = state.projects.map((project, index) => ({
     ...project,
     mappoint: [
-      locations[action.value].projects[index][0],
-      locations[action.value].projects[index][1]
+      state.orderings[action.value].projects[index][0],
+      state.orderings[action.value].projects[index][1]
     ]
   }));
   const processedTargetgroups = processTargetgroups(processedProjects, state);
@@ -656,6 +649,7 @@ const selectVis = (state, action) => {
     processedProjects,
     state
   );
+
   const processedCollections = processCollections(processedProjects, state);
   return {
     ...state,

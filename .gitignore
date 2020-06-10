@@ -26,3 +26,10 @@ public/*.json
 public/*.txt
 
 src/assets/*.json
+
+computations/__pycache__
+computations/.ipynb_checkpoints
+computations/*.json
+computations/*.csv
+computations/*.txt
+computations/pipeline-results/*.txt

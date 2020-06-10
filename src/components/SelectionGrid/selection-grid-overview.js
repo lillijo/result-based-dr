@@ -1,10 +1,10 @@
 import React from "react";
 import style from "./selection-grid.module.css";
 import HoverPopover from "../HoverPopover/HoverPopover";
-import { getFieldColor } from "../../util/utility";
 import { Slider } from "@blueprintjs/core";
+import Scatterplot from "./selection-grid-scatterplot";
 
-export default class SelectionGridDetail extends React.Component {
+export default class SelectionGridOverview extends React.Component {
   constructor(props) {
     super();
     this.state = {
@@ -19,7 +19,7 @@ export default class SelectionGridDetail extends React.Component {
     return (
       hovered && (
         <HoverPopover
-          width={"15em"}
+          width={"10em"}
           height="20px"
           locationX={mouseLocation[0]}
           locationY={mouseLocation[1]}
@@ -29,7 +29,7 @@ export default class SelectionGridDetail extends React.Component {
               position: "absolute",
               backgroundColor: "#1c1d1f",
               margin: "0",
-              fontSize: "10px",
+              fontSize: "12px",
               color: "#aaa",
               fontWeight: "500",
               letterSpacing: "1px",
@@ -47,8 +47,6 @@ export default class SelectionGridDetail extends React.Component {
   render() {
     const { selectedOrdering, selectOrdering, data, width, size } = this.props;
 
-    const scale = 5;
-
     if (!selectedOrdering || !width || !data[0].length > 1) {
       return <div />;
     }
@@ -58,26 +56,7 @@ export default class SelectionGridDetail extends React.Component {
           <span key={reihe[0][0] + "reihe"}>
             {reihe.map(ord => (
               <svg key={ord[0]} height={width / size} width={width / size}>
-                {ord[1].projects.map((project, i) => (
-                  <circle
-                    transform={
-                      "translate(" +
-                      (project[0] + 0.1) * ((width * 0.8) / size) +
-                      " " +
-                      (project[1] + 0.1) * ((width * 0.8) / size) +
-                      ")"
-                    }
-                    key={i + "punkt"}
-                    r={11 / size}
-                    version="1.1"
-                    xmlns="http://www.w3.org/2000/svg"
-                    x="0"
-                    y="0"
-                    viewBox="0 0 100 100"
-                    stroke={"transparent"}
-                    fill={getFieldColor(ord[1].fbs[i])}
-                  />
-                ))}
+                <Scatterplot singleOrdering={ord} width={width} size={size} />
 
                 <rect
                   height={width / size}
@@ -98,12 +77,10 @@ export default class SelectionGridDetail extends React.Component {
                       hovered:
                         "Perplexity: " +
                         ord[1].perp +
-                        " Learning rate: " +
+                        " Learning Rate: " +
                         ord[1].lr +
-                        " tsne: " +
-                        ord[1].x_tsne +
-                        " combDist: " +
-                        ord[1].combDist,
+                        " t-SNE Wert: " +
+                        Math.floor(ord[1].x_tsne, 2),
                       mouseLocation: [
                         evt.nativeEvent.clientX,
                         evt.nativeEvent.clientY

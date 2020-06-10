@@ -11,9 +11,8 @@ import {
 import { getFieldColor, isTouchMode, applyFilters } from "../../util/utility";
 
 /* project list is divided into clusters */
-const computeClusters = (clusterData, projects, categories) => {
+const computeClusters = (projects, categories) => {
   if (
-    !clusterData ||
     !projects ||
     projects.length === 0 ||
     !categories ||
@@ -139,7 +138,6 @@ const getCatById = (id, state) =>
 
 const mapStateToProps = state => {
   const {
-    clusterData,
     targetgroups,
     formats,
     projects,
@@ -150,12 +148,12 @@ const mapStateToProps = state => {
     highlightedGroup,
     isClicked,
     isHovered,
-    projectsMaxSizing
+    projectsMaxSizing,
+    selectedOrdering
   } = state.main;
 
   let clusterDataForView = [];
   let labels = [];
-  let topography = [];
   let highlightedProjects = [];
   let highlightedCats = [];
   let highlightedInfra = [];
@@ -164,7 +162,7 @@ const mapStateToProps = state => {
   if (isDataProcessed) {
     // filters are applied to all lists and data is prepared for the vis
     projectsForView = applyFilters(projects, filters).map(p => p.id);
-    clusterDataForView = computeClusters(clusterData, projects, targetgroups);
+    clusterDataForView = computeClusters(projects, targetgroups);
     filteredLabels = filters.highlevelFilter.value.includes(6)
       ? filters.targetgroups.value
           .concat(filters.collections.value)
@@ -175,7 +173,6 @@ const mapStateToProps = state => {
     labels = filters.highlevelFilter.value.includes(6)
       ? targetgroups.concat(collections).concat(infrastructures)
       : formats.concat(collections).concat(infrastructures);
-    topography = clusterData;
     const highlighted = extractHighlightedFromState(state.main);
     highlightedProjects = highlighted.projects;
     highlightedInfra = highlighted.infras;
@@ -184,7 +181,6 @@ const mapStateToProps = state => {
 
   return {
     clusterData: clusterDataForView,
-    topography: topography,
     labels: labels,
     filteredLabels: filteredLabels,
     isAnyClicked: !Object.values(isClicked).every(clickState => !clickState),
@@ -197,7 +193,8 @@ const mapStateToProps = state => {
     isTouch: isTouchMode(state),
     isProjectHovered: isHovered.project,
     projectsMaxSizing: projectsMaxSizing,
-    filteredProjects: projectsForView
+    filteredProjects: projectsForView,
+    selectedOrdering: selectedOrdering
   };
 };
 

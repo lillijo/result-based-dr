@@ -2,7 +2,7 @@ import React from "react";
 import SelectionGridOverview from "./selection-grid-overview";
 import SelectionGridDetail from "./selection-grid-detail";
 import style from "./selection-grid.module.css";
-import { menuBarHeight, sideBarWidth, appMargin } from "../../App";
+import { menuBarHeight, appMargin } from "../../App";
 
 class SelectionGridView extends React.Component {
   render() {

@@ -1,7 +1,6 @@
 import React from "react";
 import style from "./technical-ui.module.css";
 import HoverPopover from "../HoverPopover/HoverPopover";
-import { ReactComponent as SelectedIcon } from "../../assets/Selected-Project.svg";
 import { ReactComponent as UnselectedIcon } from "../../assets/Unselected-Project.svg";
 import { getFieldColor } from "../../util/utility";
 import "@blueprintjs/core/lib/css/blueprint.css";

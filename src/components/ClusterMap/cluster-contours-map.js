@@ -3,6 +3,7 @@ import { contours as d3Contours } from "d3-contour";
 import { scaleLinear as d3ScaleLinear } from "d3-scale";
 import { extent as d3extent } from "d3-array";
 import { geoPath as d3GeoPath } from "d3-geo";
+import uncertainties from "../../assets/uncertainties.json";
 
 const scaleContours = (
   cont,
@@ -21,8 +22,8 @@ const scaleContours = (
   const scaledCoords = coords.map(cGroup =>
     cGroup.map(c =>
       c.map(point => [
-        (point[0] / contoursSize) * factor + ClusterPosX,
-        (point[1] / contoursSize) * factor + ClusterPosY
+        ((point[0] * 0.9) / contoursSize) * factor + ClusterPosX,
+        ((point[1] * 0.9) / contoursSize) * factor + ClusterPosY
       ])
     )
   );
@@ -46,19 +47,22 @@ const computeColorMap = topography =>
 class ClusterContoursMap extends React.Component {
   constructor(props) {
     super();
-    const { topography, contoursSize } = props;
+    const { selectedOrdering, contoursSize } = props;
     this.state = {
-      topography: topography
+      topography: uncertainties[selectedOrdering]
     };
-    this.contours = constructContours(topography, contoursSize);
-    this.colorMap = computeColorMap(topography);
+    this.contours = constructContours(
+      uncertainties[selectedOrdering],
+      contoursSize
+    );
+    this.colorMap = computeColorMap(uncertainties[selectedOrdering]);
   }
 
   shouldComponentUpdate(nextProps, nextState, nextContext) {
     return (
       this.props.width !== nextProps.width ||
       this.props.height !== nextProps.height ||
-      this.props.topography.length !== nextProps.topography.length ||
+      this.props.selectedOrdering !== nextProps.selectedOrdering ||
       this.props.uncertaintyHighlighted !== nextProps.uncertaintyHighlighted
     );
   }
@@ -71,16 +75,17 @@ class ClusterContoursMap extends React.Component {
       clusterSize,
       clusterX,
       clusterY,
-      topography
+      selectedOrdering
     } = this.props;
-    if (topography.length !== this.state.topography.length) {
+    if (uncertainties[selectedOrdering] !== this.state.topography) {
+      let topography = uncertainties[selectedOrdering];
       this.contours = constructContours(topography, contoursSize);
       this.colorMap = computeColorMap(topography);
       this.setState({
         topography: topography
       });
     }
-    const emptyColourValue = topography[0];
+    const emptyColourValue = uncertainties[selectedOrdering][0];
     const lineFunction = d3GeoPath();
     const scale = Math.min(height, width);
     return (

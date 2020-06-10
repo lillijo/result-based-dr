@@ -41,9 +41,9 @@ const ClusterDot = props => {
         }
       >
         <circle
-          cx={radius / 60}
-          cy={radius / 60}
-          r={radius / 35}
+          cx={radius / 24}
+          cy={radius / 24}
+          r={radius / 38}
           fill={"transparent"}
         />
         <SelectedIcon

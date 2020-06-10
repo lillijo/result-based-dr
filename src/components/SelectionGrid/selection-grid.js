@@ -6,11 +6,14 @@ import {
   selectVis,
   changeGridSize
 } from "../../store/actions/actions";
-import orderings from "../../assets/current_dump.json";
 
 const mapStateToProps = state => {
-  const selectedOrderingData = orderings[state.main.selectedOrdering];
-  const allOrderings = orderings.map((ordering, index) => [index, ordering]);
+  const selectedOrderingData =
+    state.main.orderings[state.main.selectedOrdering];
+  const allOrderings = state.main.orderings.map((ordering, index) => [
+    index,
+    ordering
+  ]);
   const size = state.main.gridSize;
   const samples = allOrderings
     .sort((a, b) => (a[1].x_tsne < b[1].x_tsne ? 1 : -1))
@@ -18,7 +21,9 @@ const mapStateToProps = state => {
   let grid = [];
   while (grid.length < size) {
     grid.push(
-      samples.splice(0, size).sort((a, b) => (a[1].perp > b[1].perp ? 1 : -1))
+      samples
+        .splice(0, size)
+        .sort((a, b) => (a[1].combDist > b[1].combDist ? 1 : -1))
     );
   }
 
@@ -40,4 +45,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SelectionGridView);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SelectionGridView);
