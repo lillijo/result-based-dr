@@ -149,7 +149,7 @@ export default class ClusterMapView extends React.Component {
         }}
       >
         <IconExplanation posX={20} posY={isTouch ? height - 100 : 20} />
-        <OverviewButton posX={20} posY={height - 200} />
+        <OverviewButton posX={20} posY={height - 300} />
         <UncertaintyExplanation
           posX={width - 170}
           posY={20}

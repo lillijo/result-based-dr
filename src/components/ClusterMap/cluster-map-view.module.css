@@ -77,10 +77,11 @@
 }
 
 .buttonOverview {
-  background-color: #888;
+  background-color: #1c1d1f;
   z-index: 99;
+  color: #aaa;
   font-family: IBM_Plex_Mono;
-  border: 10px solid #888;
+  border: 10px solid #1c1d1f;
   border-radius: 5px;
   cursor: POINTER;
   text-align: center;

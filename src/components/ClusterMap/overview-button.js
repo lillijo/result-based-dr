@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { selectVis, changeGraph } from "../../store/actions/actions";
 import style from "./cluster-map-view.module.css";
+import { ReactComponent as OrderingIcon } from "../../assets/ordering_icon.svg";
 
 /* legend for the labels in the outer circle of clustervis is drawn as a fixed position div over the cluster vis. When one is hovered all links of the type are highlighted. */
 const OverviewButton = props => {
@@ -22,25 +23,26 @@ const OverviewButton = props => {
     >
       <p
         className={style.buttonOverview}
-        onClick={() => dispatch(selectVis(Math.floor(Math.random() * 100)))}
-      >
-        Zufällige Auswahl
-      </p>
-
-      <p
-        className={style.buttonOverview}
         onClick={() => dispatch(changeGraph("3"))}
       >
+        <OrderingIcon className={style.orderingIcon} />
         Zur Auswahl der Anordnung
       </p>
       <p
         className={style.buttonOverview}
         onClick={() => dispatch(changeGraph("4"))}
       >
-        technisches Interface
+        Technische Parameterauswahl
       </p>
     </div>
   );
 };
+
+// <p
+//   className={style.buttonOverview}
+//   onClick={() => dispatch(selectVis(Math.floor(Math.random() * 100)))}
+// >
+//   Zufällige Auswahl
+// </p>
 
 export default OverviewButton;
