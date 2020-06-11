@@ -23,6 +23,18 @@ class NavigationSubpages extends Component {
               className={
                 classes.leftElement +
                 " " +
+                (this.props.graph === "3" ? classes.active : "")
+              }
+              onClick={() => changeGraph("3")}
+            >
+              AUSWAHL
+            </div>
+          </li>
+          <li>
+            <div
+              className={
+                classes.leftElement +
+                " " +
                 (this.props.graph === "0" ? classes.active : "")
               }
               onClick={() => changeGraph("0")}
