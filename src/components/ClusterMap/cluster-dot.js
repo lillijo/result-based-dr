@@ -43,12 +43,12 @@ const ClusterDot = props => {
         <circle
           cx={radius / 24}
           cy={radius / 24}
-          r={radius / 38}
+          r={radius / 46}
           fill={"transparent"}
         />
         <SelectedIcon
-          width={(radius / 12) * scale}
-          height={(radius / 12) * scale}
+          width={(radius / 14) * scale}
+          height={(radius / 14) * scale}
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
           x="0px"

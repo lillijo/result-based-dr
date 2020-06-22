@@ -44,7 +44,7 @@ export default class Scatterplot extends React.Component {
             y="0"
             viewBox="0 0 100 100"
             stroke={"transparent"}
-            fill={getFieldColor(singleOrdering[1].fbs[i])}
+            fill={getFieldColor(singleOrdering[1].classes[i])}
           />
         ))}
       </svg>

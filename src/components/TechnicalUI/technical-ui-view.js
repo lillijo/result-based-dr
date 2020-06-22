@@ -107,7 +107,7 @@ export default class TechnicalUiView extends React.Component {
                 viewBox="0 0 100 100"
                 cursor="POINTER"
                 stroke={"transparent"}
-                fill={getFieldColor(selectedOrdering.fbs[i])}
+                fill={getFieldColor(selectedOrdering.classes[i])}
                 onMouseOver={evt => {
                   this.setState({
                     hovered: selectedOrdering.titles[i],
@@ -136,7 +136,7 @@ export default class TechnicalUiView extends React.Component {
               max={Math.max(...allOrderings.map(o => o[1].perp))}
               id="perplexity"
               labelStepSize={4}
-              stepSize={2}
+              stepSize={1}
               value={this.state.perplexity}
               onRelease={value =>
                 this.changeParameters(value, this.state.learningrate)
@@ -151,7 +151,7 @@ export default class TechnicalUiView extends React.Component {
               max={Math.max(...allOrderings.map(o => o[1].lr))}
               id="learningrate"
               labelStepSize={20}
-              stepSize={5}
+              stepSize={10}
               value={this.state.learningrate}
               onRelease={value =>
                 this.changeParameters(this.state.perplexity, value)
