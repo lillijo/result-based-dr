@@ -6,8 +6,7 @@ import { menuBarHeight, appMargin } from "../../App";
 
 class SelectionGridView extends React.Component {
   render() {
-    const height = window.innerHeight - menuBarHeight - 5 * appMargin;
-    const width = window.innerWidth * 0.45;
+    const width = window.innerWidth * 0.42;
     if (!this.props.isDataProcessed) {
       return <div />;
     }
@@ -19,7 +18,6 @@ class SelectionGridView extends React.Component {
             selectedOrdering={this.props.selectedOrdering}
             selectOrdering={this.props.selectOrdering}
             data={this.props.allOrderings}
-            height={height}
             width={width}
             size={this.props.size}
             changeSize={this.props.changeGridSize}
@@ -27,7 +25,6 @@ class SelectionGridView extends React.Component {
           <SelectionGridDetail
             className={style.sideWrapper}
             selectedOrdering={this.props.selectedOrderingData}
-            height={height}
             width={width}
             changeGraph={this.props.changeGraph}
           />

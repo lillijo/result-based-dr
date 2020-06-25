@@ -26,7 +26,7 @@ const OverviewButton = props => {
         onClick={() => dispatch(changeGraph("3"))}
       >
         <OrderingIcon className={style.orderingIcon} />
-        Zur Auswahl der Anordnung
+        Anordnung auswählen
       </p>
       <p
         className={style.buttonOverview}

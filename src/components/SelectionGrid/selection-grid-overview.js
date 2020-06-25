@@ -22,7 +22,7 @@ export default class SelectionGridOverview extends React.Component {
           width={"10em"}
           height="20px"
           locationX={mouseLocation[0]}
-          locationY={mouseLocation[1]}
+          locationY={mouseLocation[1] - 20}
         >
           <p
             style={{
@@ -59,8 +59,8 @@ export default class SelectionGridOverview extends React.Component {
                 <Scatterplot singleOrdering={ord} width={width} size={size} />
 
                 <rect
-                  height={width / size}
-                  width={width / size}
+                  height={(width / size) * 0.98}
+                  width={(width / size) * 0.98}
                   stroke={
                     ord[0] === parseInt(selectedOrdering)
                       ? "#afca0b"
@@ -80,7 +80,7 @@ export default class SelectionGridOverview extends React.Component {
                         " Learning Rate: " +
                         ord[1].lr +
                         " t-SNE Wert: " +
-                        Math.floor(ord[1].x_tsne, 2),
+                        Math.round(ord[1].tsne_measure),
                       mouseLocation: [
                         evt.nativeEvent.clientX,
                         evt.nativeEvent.clientY
@@ -100,8 +100,26 @@ export default class SelectionGridOverview extends React.Component {
             <br />
           </span>
         ))}
-        <span className={style.sliderWrapper}>
-          Größe des Gitters:
+        <div
+          className={style.xAxis}
+          onMouseOver={evt => {
+            this.setState({
+              hovered:
+                "Die Plots in den Zeilen sind nach ihrer Perplexity geordnet. Eine niedrige Perplexity (links) bedeutet, dass relativ kleine enge Gruppierungen entstehen. Eine hohe Perplexity deutet auf eine eher gleichmäßige Verteilung hin.",
+              mouseLocation: [width / 2 + 180, width + 65]
+            });
+          }}
+          onMouseLeave={() => {
+            this.setState({
+              hovered: false,
+              mouseLocation: [0, 0]
+            });
+          }}
+        >
+          Perplexity
+        </div>
+        <div className={style.sliderWrapper}>
+          <span className={style.sliderText}>Größe des Gitters:</span>
           <Slider
             className={style.RangeSliderStyle}
             min={3}
@@ -111,7 +129,29 @@ export default class SelectionGridOverview extends React.Component {
             value={this.props.size}
             onRelease={value => this.props.changeSize(value)}
           />
-        </span>
+        </div>
+        <div
+          className={style.yAxis}
+          style={{
+            left: "20px",
+            top: width / 2 + 65 + "px"
+          }}
+          onMouseOver={evt => {
+            this.setState({
+              hovered:
+                "Die Verteilung der Punkte in den einzelnen Plots ist in einer Zeile ähnlich, während sie sich über die Zeilen hinweg verändert.",
+              mouseLocation: [140, width / 2 + 65]
+            });
+          }}
+          onMouseLeave={() => {
+            this.setState({
+              hovered: false,
+              mouseLocation: [0, 0]
+            });
+          }}
+        >
+          t-SNE Measure
+        </div>
         {this.renderHover(this.state.hovered, this.state.mouseLocation)}
       </div>
     );

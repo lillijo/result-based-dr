@@ -58,7 +58,13 @@ export default class SelectionGridDetail extends React.Component {
     return (
       <div className={style.selectionDetailWrapper}>
         <svg height={width} width={width} fill="transparent">
-          <rect stroke="#222" height={width} width={width} fill="transparent" />
+          <rect
+            stroke="#222"
+            strokeWidth="6px"
+            height={width}
+            width={width}
+            fill="transparent"
+          />
           {selectedOrdering.projects.map((project, i) => (
             <g
               transform={

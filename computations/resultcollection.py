@@ -34,8 +34,9 @@ class ResultCollection():
                 self.tsne_over_results()
                 print("tsne mapping computed")
                 firstG = self.dumps[0].m_mst_graph()
+                firstP = self.dumps[0].projects
                 for dump in self.dumps:
-                    dump.compute_all_measures(firstG,21)
+                    dump.compute_all_measures(firstG,firstP,21)
                 print("all measures computed")
                 save_file([i.get_dump() for i in self.dumps],'currentCombinedMeasures.json' )
                 print('measures saved')
@@ -57,8 +58,8 @@ class ResultCollection():
             for lr in set([i.lr for i in self.dumps]):
                 current = list(filter(lambda x: x.lr ==lr and x.perp == perp, self.dumps))
                 if len(current) > 0:
-                    current.sort(key=lambda tup: tup.silhouette_measure)
-                    dumpsToSave.append(current[-1])
+                    #current.sort(key=lambda tup: tup.lr)
+                    dumpsToSave.append(current[0])
         self.samples = dumpsToSave
         save_file([i.get_dump() for i in self.samples],'../src/assets/current_dump.json' )
         print('samples saved')

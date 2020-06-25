@@ -2,7 +2,7 @@ from sklearn.metrics import silhouette_samples
 import numpy as np
 import math
 from itertools import combinations
-from scipy.spatial.distance import cdist, pdist, squareform
+from scipy.spatial.distance import cdist, pdist, squareform, euclidean
 from scipy.stats.mstats import spearmanr
 from sklearn import preprocessing
 import pandas as pd
@@ -48,6 +48,7 @@ class EmbeddingResult():
         self.mean_jaccard_measure = None
         self.stability_measure = None
         self.tsne_measure = None
+        self.hellinger_measure = None
 
     def from_dump(self,dump):
         self.perp = dump['perp']
@@ -69,6 +70,7 @@ class EmbeddingResult():
         self.mean_jaccard_measure = dump['mean_jaccard_measure']
         self.stability_measure = dump['stability_measure']
         self.tsne_measure = dump['tsne_measure']
+        self.hellinger_measure = dump['hellinger_measure']
         return self
 
     def get_dump(self):
@@ -90,6 +92,11 @@ class EmbeddingResult():
         distances = pdist(self.projects)
         distances.sort()
         self.distance_measure = sum(distances[:len(self.projects)])/len(self.projects)
+
+    def m_hellinger(self,other_projects):
+        p =  [item for sublist in self.projects for item in sublist]
+        q =  [item for sublist in other_projects for item in sublist]
+        self.hellinger_measure = euclidean(np.sqrt(p), np.sqrt(q)) / np.sqrt(2)
 
     def m_stability(self,point):
         self.stability_measure = math.atan(self.projects[point][1]/(self.projects[point][0]+0.0001))
@@ -148,12 +155,15 @@ class EmbeddingResult():
             sumOfVals+= len(list(set(N1) & set(N2)))/len(list(set(N1) | set(N2)))
         self.mean_jaccard_measure = sumOfVals*c
 
-    def compute_all_measures(self,other_graph, stability_point):
+    def compute_all_measures(self,other_graph, other_projects, stability_point):
         self.m_mst_graph()
         if other_graph == None:
             other_graph = self._mst_graph
+        if other_projects == None:
+            other_projects = self.projects
         self.m_mean_jaccard(other_graph)
         self.m_scagnostics()
         self.m_stability(stability_point)
         self.m_smallest_dists()
         self.m_silhouette()
+        self.m_hellinger(other_projects)
