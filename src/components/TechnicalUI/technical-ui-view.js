@@ -2,6 +2,7 @@ import React from "react";
 import style from "./technical-ui.module.css";
 import HoverPopover from "../HoverPopover/HoverPopover";
 import { ReactComponent as UnselectedIcon } from "../../assets/Unselected-Project.svg";
+import { ReactComponent as Tick } from "../../assets/tick.svg";
 import { getFieldColor } from "../../util/utility";
 import "@blueprintjs/core/lib/css/blueprint.css";
 import "@blueprintjs/icons/lib/css/blueprint-icons.css";
@@ -37,8 +38,8 @@ export default class TechnicalUiView extends React.Component {
 
   getPointLocation(pt, scale) {
     let [x, y] = pt;
-    let newX = (x + 0.0) * scale * 0.9;
-    let newY = (y + 0.0) * scale * 0.9;
+    let newX = x * scale * 0.9 + 20;
+    let newY = y * scale * 0.9 + 20;
     return newX + " " + newY;
   }
   renderHover(hovered, mouseLocation) {
@@ -158,11 +159,15 @@ export default class TechnicalUiView extends React.Component {
               }
             />
           </div>
-          <div
-            className={style.chooseButton}
-            onClick={() => this.props.changeGraph("0")}
-          >
-            Diese Anordnung im Kontext anzeigen
+          <div className={style.chooseButtonWrapper}>
+            <span
+              className={style.chooseButton}
+              onClick={() => this.props.changeGraph("0")}
+            >
+              Auswählen
+              <br />
+              <Tick width="35px" height="35px" />
+            </span>
           </div>
         </div>
         {this.renderHover(this.state.hovered, this.state.mouseLocation)}

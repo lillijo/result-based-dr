@@ -3,6 +3,7 @@ import style from "./selection-grid.module.css";
 import HoverPopover from "../HoverPopover/HoverPopover";
 import { ReactComponent as SelectedIcon } from "../../assets/Selected-Project.svg";
 import { ReactComponent as UnselectedIcon } from "../../assets/Unselected-Project.svg";
+import { ReactComponent as Tick } from "../../assets/tick.svg";
 import { getFieldColor } from "../../util/utility";
 
 export default class SelectionGridDetail extends React.Component {
@@ -123,7 +124,9 @@ export default class SelectionGridDetail extends React.Component {
             className={style.chooseButton}
             onClick={() => this.props.changeGraph("0")}
           >
-            Diese Anordnung im Kontext anzeigen
+            Auswählen
+            <br />
+            <Tick width={width / 25} height={width / 25} />
           </span>
         </div>
         {this.renderHover(this.state.hovered, this.state.mouseLocation)}

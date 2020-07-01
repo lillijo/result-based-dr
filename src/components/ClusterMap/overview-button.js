@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { selectVis, changeGraph } from "../../store/actions/actions";
+import { changeGraph } from "../../store/actions/actions";
 import style from "./cluster-map-view.module.css";
 import { ReactComponent as OrderingIcon } from "../../assets/ordering_icon.svg";
 
@@ -37,12 +37,5 @@ const OverviewButton = props => {
     </div>
   );
 };
-
-// <p
-//   className={style.buttonOverview}
-//   onClick={() => dispatch(selectVis(Math.floor(Math.random() * 100)))}
-// >
-//   Zufällige Auswahl
-// </p>
 
 export default OverviewButton;

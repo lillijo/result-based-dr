@@ -41,14 +41,23 @@
 .chooseButton {
   background-color: #888;
   color: #0e0e0e;
+  stroke: #0e0e0e;
+  fill: #0e0e0e;
+  text-align: center;
+  display: block;
   border-radius: 5px;
   border-radius: 5px solid #888;
-  padding: 5px;
-  margin-top: 30px;
-  font-size: 90%;
+  padding: 10px 10px 0px 10px;
   cursor: pointer;
 }
 
 .chooseButton:hover {
   background-color: #aaa;
+}
+
+.chooseButtonWrapper {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  padding-top: 30px;
 }

@@ -1,6 +1,7 @@
 import sys
 import os
 from resultcollection import ResultCollection
+from get_pipeline_results import get_pipeline_results 
 
 def main(argv):
     if len(argv) > 0:
@@ -9,6 +10,11 @@ def main(argv):
             r.save_as_files()
         elif argv[0] == "--help":
             print("to recompute all measures use --recreate")
+        elif argv[0] == "--compute-new-results":
+            print("recreating new t-sne embeddings in 'pipeline-results'")
+            get_pipeline_results()
+            r = ResultCollection(create=True)
+            r.save_as_files()
         else:
             print("to get help use --help")
     elif not os.path.isfile('../src/assets/current_dump.json'):

@@ -11,7 +11,6 @@ class ResultCollection():
         self.create = create
         self.dumps = dumps
         self.samples = None
-        self.tsne_computation = None
 
     def load_results(self,path):
         for filename in os.listdir(path):
@@ -19,7 +18,7 @@ class ResultCollection():
                 projects = json.load(json_file)
                 self.dumps.append(EmbeddingResult(projects,filename))
 
-    def tsne_over_results(self,dim=1, perp=30,lr=100):
+    def tsne_over_results(self,dim=1, perp=40,lr=100):
         X = np.array([list(sum([(i.projects[j][0],i.projects[j][1] )
             for j in range(len(i.projects))], ())) for i in self.dumps])
         X_embedded = TSNE(n_components=dim,perplexity=perp,learning_rate=lr).fit_transform(X)
@@ -47,19 +46,19 @@ class ResultCollection():
 
 
     def create_sampled_dump(self):
-        # if len(self.dumps) == 0:
-        #     with open('currentCombinedMeasures.json') as json_file:
-        #         self.dumps = []
-        #         dumps = json.load(json_file)
-        #         for i in dumps:
-        #             self.dumps.append(EmbeddingResult().from_dump(i))
+        if len(self.dumps) == 0:
+            with open('currentCombinedMeasures.json') as json_file:
+                self.dumps = []
+                dumps = json.load(json_file)
+                for i in dumps:
+                    self.dumps.append(EmbeddingResult().from_dump(i))
         dumpsToSave = []
         for perp in set([i.perp for i in self.dumps]):
             for lr in set([i.lr for i in self.dumps]):
                 current = list(filter(lambda x: x.lr ==lr and x.perp == perp, self.dumps))
                 if len(current) > 0:
-                    #current.sort(key=lambda tup: tup.lr)
-                    dumpsToSave.append(current[0])
+                    current.sort(key=lambda tup: tup.tsne_measure)
+                    dumpsToSave.append(current[2])
         self.samples = dumpsToSave
         save_file([i.get_dump() for i in self.samples],'../src/assets/current_dump.json' )
         print('samples saved')

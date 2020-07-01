@@ -122,7 +122,6 @@ export default class ClusterMapView extends React.Component {
       filteredProjects,
       labels,
       filteredLabels,
-      topography,
       selectedOrdering,
       clusterData
     } = this.props;
