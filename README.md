@@ -7,5 +7,5 @@ Bachelor Thesis Lilli Joppien on
 This is a variation to the IKON frontend that can be found at:
 https://github.com/FUB-HCC/IKON-projektor
 
-It is a subrepo of the IKON visualization prototype that can be found here:
+It originates from the IKON visualization prototype that can be found here:
 https://github.com/FUB-HCC/IKON-backend
