@@ -30,12 +30,12 @@
   color: #0e0e0e;
   stroke: #0e0e0e;
   fill: #0e0e0e;
-  text-align: center;
-  display: block;
+  display: flex;
+  justify-content: space-between;
   font-size: 150%;
   border-radius: 5px;
   border-radius: 5px solid #888;
-  padding: 15px 15px 0px 15px;
+  padding: 10px 20px 0px 20px;
   cursor: pointer;
 }
 
@@ -87,4 +87,51 @@
 .RangeSliderStyle {
   margin-left: 50px;
   width: 50% !important;
+}
+
+.selectDialog {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  padding: 30px;
+  padding-bottom: 0px;
+}
+
+.selectHeader {
+  font-size: 150%;
+  font-weight: 600;
+  color: #afca0b;
+  margin-bottom: 20px;
+}
+
+.closeSelect {
+  font-weight: 700;
+  font-size: 100%;
+  color: #afca0b;
+  margin-top: 30px;
+  cursor: pointer;
+}
+
+.selectButtons {
+  margin-top: 20px;
+  display: flex;
+  font-weight: 700;
+}
+
+.selectButton {
+  color: #afca0b;
+  cursor: pointer;
+  border: solid #afca0b 1px;
+  border-radius: 10px;
+  padding: 5px;
+  margin: 5px;
+}
+.selectButton:hover {
+  color: #aaa;
+  border-color: #aaa;
+}
+
+.bp3Dialog {
+  background-color: #1c1d1f !important;
+  border-radius: 0;
 }

@@ -1,9 +1,11 @@
 import React from "react";
+import { Dialog } from "@blueprintjs/core";
 import style from "./selection-grid.module.css";
 import HoverPopover from "../HoverPopover/HoverPopover";
 import { ReactComponent as SelectedIcon } from "../../assets/Selected-Project.svg";
 import { ReactComponent as UnselectedIcon } from "../../assets/Unselected-Project.svg";
 import { ReactComponent as Tick } from "../../assets/tick.svg";
+import { ReactComponent as Cross } from "../../assets/cross.svg";
 import { getFieldColor } from "../../util/utility";
 
 export default class SelectionGridDetail extends React.Component {
@@ -11,9 +13,13 @@ export default class SelectionGridDetail extends React.Component {
     super();
     this.state = {
       hovered: false,
-      mouseLocation: [0, 0]
+      mouseLocation: [0, 0],
+      selectDialogIsOpen: false
     };
     this.renderHover = this.renderHover.bind(this);
+    this.dialogOpened = this.dialogOpened.bind(this);
+    this.dialogClosed = this.dialogClosed.bind(this);
+    this.dialogOption = this.dialogOption.bind(this);
   }
   getPointLocation(pt, scale) {
     let [x, y] = pt;
@@ -21,6 +27,20 @@ export default class SelectionGridDetail extends React.Component {
     let newY = (y + 0.1) * scale;
     return newX + " " + newY;
   }
+
+  dialogOpened() {
+    this.props.selectDialogOpened();
+    this.setState({ selectDialogIsOpen: true });
+  }
+  dialogClosed() {
+    this.setState({ selectDialogIsOpen: false });
+  }
+
+  dialogOption(x) {
+    this.props.changeGraph(x);
+    this.setState({ selectDialogIsOpen: false });
+  }
+
   renderHover(hovered, mouseLocation) {
     return (
       hovered !== false && (
@@ -51,13 +71,39 @@ export default class SelectionGridDetail extends React.Component {
   }
 
   render() {
-    const { selectedOrdering, width } = this.props;
+    const { selectedOrdering, selectedState, width } = this.props;
     const scale = width * 0.8;
     if (!selectedOrdering) {
       return <div />;
     }
     return (
       <div className={style.selectionDetailWrapper}>
+        <Dialog
+          isOpen={this.state.selectDialogIsOpen}
+          onClose={this.dialogClosed}
+          className={style.bp3Dialog}
+        >
+          <div className={style.selectDialog}>
+            <div className={style.selectButtons}>
+              <span
+                className={style.selectButton}
+                onClick={() => this.dialogOption("0")}
+              >
+                Zurück in die allgemeine Visualisierung (WISSEN-View)
+              </span>
+              <span
+                className={style.selectButton}
+                onClick={() => this.dialogOption("3")}
+              >
+                In der Grid-View bleiben
+              </span>
+            </div>
+
+            <div className={style.closeSelect} onClick={this.dialogClosed}>
+              Fenster schließen
+            </div>
+          </div>
+        </Dialog>
         <svg height={width} width={width} fill="transparent">
           <rect
             stroke="#222"
@@ -122,11 +168,31 @@ export default class SelectionGridDetail extends React.Component {
         <div className={style.chooseButtonWrapper}>
           <span
             className={style.chooseButton}
-            onClick={() => this.props.changeGraph("0")}
+            onClick={() => {
+              this.props.selectOrdering(selectedState);
+              this.dialogOpened();
+            }}
           >
             Auswählen
-            <br />
-            <Tick width={width / 25} height={width / 25} />
+            <Tick
+              style={{ marginLeft: "15px" }}
+              width={width / 25}
+              height={width / 25}
+            />
+          </span>
+          <span
+            className={style.chooseButton}
+            onClick={() => {
+              this.props.selectOrdering([selectedState[0], selectedState[0]]);
+              this.dialogOpened();
+            }}
+          >
+            Abbrechen
+            <Cross
+              style={{ marginLeft: "15px" }}
+              width={width / 35}
+              height={width / 35}
+            />
           </span>
         </div>
         {this.renderHover(this.state.hovered, this.state.mouseLocation)}

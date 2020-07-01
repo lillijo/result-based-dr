@@ -4,12 +4,13 @@ import { isTouchMode } from "../../util/utility";
 import {
   changeGraph,
   selectVis,
+  selectDialogOpened,
   changeGridSize
 } from "../../store/actions/actions";
 
 const mapStateToProps = state => {
   const selectedOrderingData =
-    state.main.orderings[state.main.selectedOrdering];
+    state.main.orderings[state.main.selectedOrdering[1]];
   const allOrderings = state.main.orderings.map((ordering, index) => [
     index,
     ordering
@@ -39,7 +40,10 @@ const mapDispatchToProps = dispatch => {
   return {
     changeGraph: value => dispatch(changeGraph(value)),
     changeGridSize: value => dispatch(changeGridSize(value)),
-    selectOrdering: value => dispatch(selectVis(value))
+    selectOrdering: value => dispatch(selectVis(value)),
+    selectDialogOpened: () => {
+      dispatch(selectDialogOpened());
+    }
   };
 };
 

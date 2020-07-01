@@ -47,7 +47,7 @@ export default class SelectionGridOverview extends React.Component {
   render() {
     const { selectedOrdering, selectOrdering, data, width, size } = this.props;
 
-    if (!selectedOrdering || !width || !data[0].length > 1) {
+    if (!selectedOrdering.length > 1 || !width || !data[0].length > 1) {
       return <div />;
     }
     return (
@@ -62,14 +62,16 @@ export default class SelectionGridOverview extends React.Component {
                   height={(width / size) * 0.98}
                   width={(width / size) * 0.98}
                   stroke={
-                    ord[0] === parseInt(selectedOrdering)
+                    ord[0] === parseInt(selectedOrdering[1])
                       ? "#afca0b"
                       : this.state.hoveredId === ord[0]
                       ? "#888"
                       : "#222"
                   }
                   fill="transparent"
-                  onClick={() => selectOrdering(ord[0])}
+                  onClick={() =>
+                    selectOrdering([selectedOrdering[0], ord[0].toString()])
+                  }
                   cursor="POINTER"
                   onMouseOver={evt => {
                     this.setState({

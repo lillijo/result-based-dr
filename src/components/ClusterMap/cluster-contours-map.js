@@ -49,20 +49,20 @@ class ClusterContoursMap extends React.Component {
     super();
     const { selectedOrdering, contoursSize } = props;
     this.state = {
-      topography: uncertainties[selectedOrdering]
+      topography: uncertainties[selectedOrdering[1]]
     };
     this.contours = constructContours(
-      uncertainties[selectedOrdering],
+      uncertainties[selectedOrdering[1]],
       contoursSize
     );
-    this.colorMap = computeColorMap(uncertainties[selectedOrdering]);
+    this.colorMap = computeColorMap(uncertainties[selectedOrdering[1]]);
   }
 
   shouldComponentUpdate(nextProps, nextState, nextContext) {
     return (
       this.props.width !== nextProps.width ||
       this.props.height !== nextProps.height ||
-      this.props.selectedOrdering !== nextProps.selectedOrdering ||
+      this.props.selectedOrdering[1] !== nextProps.selectedOrdering[1] ||
       this.props.uncertaintyHighlighted !== nextProps.uncertaintyHighlighted
     );
   }
@@ -77,15 +77,15 @@ class ClusterContoursMap extends React.Component {
       clusterY,
       selectedOrdering
     } = this.props;
-    if (uncertainties[selectedOrdering] !== this.state.topography) {
-      let topography = uncertainties[selectedOrdering];
+    if (uncertainties[selectedOrdering[1]] !== this.state.topography) {
+      let topography = uncertainties[selectedOrdering[1]];
       this.contours = constructContours(topography, contoursSize);
       this.colorMap = computeColorMap(topography);
       this.setState({
         topography: topography
       });
     }
-    const emptyColourValue = uncertainties[selectedOrdering][0];
+    const emptyColourValue = uncertainties[selectedOrdering[1]][0];
     const lineFunction = d3GeoPath();
     const scale = Math.min(height, width);
     return (

@@ -246,6 +246,12 @@ export const shareDialogOpened = () => {
   };
 };
 
+export const selectDialogOpened = () => {
+  return {
+    type: actionTypes.SELECT_DIALOG_OPENED
+  };
+};
+
 /* triggered when "Zurücksetzen" button is clicked loads window.location.pathname */
 export const pageReset = () => {
   return {
@@ -271,10 +277,10 @@ export const showSampleList = () => ({
 });
 
 /* opens overview grid*/
-export const selectVis = number => {
+export const selectVis = numbers => {
   return {
     type: actionTypes.SELECT_VIS,
-    value: number
+    value: numbers
   };
 };
 /* changes grid size to specified value (squared)*/

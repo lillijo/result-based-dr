@@ -24,7 +24,10 @@ class SelectionGridView extends React.Component {
           <SelectionGridDetail
             className={style.sideWrapper}
             selectedOrdering={this.props.selectedOrderingData}
+            selectedState={this.props.selectedOrdering}
+            selectOrdering={this.props.selectOrdering}
             width={width}
+            selectDialogOpened={this.props.selectDialogOpened}
             changeGraph={this.props.changeGraph}
           />
         </div>

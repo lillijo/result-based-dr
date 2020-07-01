@@ -112,8 +112,8 @@ export const initialState = {
   uncertaintyOn: false,
   uncertaintyHighlighted: false,
   orderings: locations,
-  selectedOrdering: "1",
-  gridSize: 5,
+  selectedOrdering: ["1", "1"],
+  gridSize: 7,
   isDataLoaded: { data: false, samples: false },
   isDataProcessed: false,
   sideBarComponent: <FilterPanel />
@@ -329,8 +329,8 @@ const processAllData = state => {
     (project, index) => ({
       ...project,
       mappoint: [
-        state.orderings[state.selectedOrdering].projects[index][0],
-        state.orderings[state.selectedOrdering].projects[index][1]
+        state.orderings[state.selectedOrdering[1]].projects[index][0],
+        state.orderings[state.selectedOrdering[1]].projects[index][1]
       ]
     })
   );
@@ -639,8 +639,8 @@ const selectVis = (state, action) => {
   const processedProjects = state.projects.map((project, index) => ({
     ...project,
     mappoint: [
-      state.orderings[action.value].projects[index][0],
-      state.orderings[action.value].projects[index][1]
+      state.orderings[action.value[1]].projects[index][0],
+      state.orderings[action.value[1]].projects[index][1]
     ]
   }));
   const processedTargetgroups = processTargetgroups(processedProjects, state);
