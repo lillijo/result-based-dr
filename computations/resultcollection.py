@@ -58,7 +58,7 @@ class ResultCollection():
                 current = list(filter(lambda x: x.lr ==lr and x.perp == perp, self.dumps))
                 if len(current) > 0:
                     current.sort(key=lambda tup: tup.tsne_measure)
-                    dumpsToSave.append(current[2])
+                    dumpsToSave.append(current[0])
         self.samples = dumpsToSave
         save_file([i.get_dump() for i in self.samples],'../src/assets/current_dump.json' )
         print('samples saved')

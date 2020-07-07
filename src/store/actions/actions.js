@@ -1,6 +1,6 @@
 import * as actionTypes from "./actionTypes";
-import axios from "axios";
 import { batch } from "react-redux";
+import dump from "../../assets/test.json";
 const Flatted = require("flatted/esm");
 
 /* value can be 0=WISSEN, 1=ZEIT, 2=RAUM. switches to the page accordingly (only if not touch version)*/
@@ -146,27 +146,20 @@ export const legendHovered = legendKey => ({
 
 /* fetches the flattened data graph from the backend and parses it back into  json. Also triggers updating and after that processing of the data*/
 export const fetchData = () => {
+  let parsedData = Flatted.parse(JSON.stringify(dump));
   return dispatch => {
-    axios
-      .get("test.json", {
-        transformResponse: res => Flatted.parse(res)
-      })
-      .then(result => {
-        batch(() => {
-          dispatch(updateData(result.data));
-          dispatch(processDataIfReady());
-        });
-      });
+    batch(() => {
+      dispatch(updateData(parsedData));
+      dispatch(processDataIfReady());
+    });
   };
 };
 /* fetches an array with all the names of visualization-states that have been shared with the touchscreen from the backend so far*/
 export const fetchSampleList = () => {
   return dispatch => {
-    axios.get("sharing.txt").then(result => {
-      batch(() => {
-        dispatch(updateSampleList(result.data));
-        dispatch(processDataIfReady());
-      });
+    batch(() => {
+      dispatch(updateSampleList(["Test"]));
+      dispatch(processDataIfReady());
     });
   };
 };
@@ -174,32 +167,15 @@ export const fetchSampleList = () => {
 /* with "api/sharing/<STATENAME>" the state url of a specific vis. is fetched from the backend */
 export const fetchIndividualSample = name => {
   return dispatch => {
-    axios({
-      method: "GET",
-      url: encodeURI("sharing.txt" + name)
-    })
-      .then(response => {
-        batch(() => {
-          dispatch(sampleClicked(response.data));
-        });
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+    batch(() => {
+      dispatch(sampleClicked("geteilte Ansicht Test"));
+    });
   };
 };
 
 /* can only be triggered in browser version, sends the current state url to the backend, the "name" can be set in the shareDialog and the current date will be added to it (e.g. "ANSICHTNAME|8.4.2020")*/
 export const shareUrl = name => {
-  axios({
-    method: "post",
-    url: encodeURI("sharing.txt" + name),
-    data: JSON.stringify(window.location.search)
-  }).then(function(response) {
-    if (response.status === 200) {
-      window.alert("Die Ansicht wurde an den Touch Screen geschickt.");
-    }
-  });
+  window.alert("Die Ansicht " + name + " wurde an den Touch Screen geschickt.");
 };
 
 /* fills the states with just fetched and unprocessed data from api/graph first */

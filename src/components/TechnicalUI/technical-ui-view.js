@@ -22,18 +22,19 @@ export default class TechnicalUiView extends React.Component {
   }
 
   changeParameters(perp, lr) {
-    this.setState({
-      perplexity: perp,
-      learningrate: lr
-    });
-    let ordering = this.props.allOrderings.reduce((prev, curr) =>
-      Math.abs(curr[1].perp - perp) <= Math.abs(prev[1].perp - perp) &&
-      Math.abs(curr[1].lr - lr) <= Math.abs(prev[1].lr - lr)
-        ? curr
-        : prev
-    );
-    this.props.selectOrdering(ordering[0]);
-    console.log(ordering[1].perp + " " + ordering[1].lr);
+    setTimeout(function() {
+      this.setState({
+        perplexity: perp,
+        learningrate: lr
+      });
+      let ordering = this.props.allOrderings.reduce((prev, curr) =>
+        Math.abs(curr[1].perp - perp) <= Math.abs(prev[1].perp - perp) &&
+        Math.abs(curr[1].lr - lr) <= Math.abs(prev[1].lr - lr)
+          ? curr
+          : prev
+      );
+      this.props.selectOrdering(ordering[0]);
+    }, 2000);
   }
 
   getPointLocation(pt, scale) {
