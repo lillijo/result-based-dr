@@ -21,20 +21,27 @@ export default class TechnicalUiView extends React.Component {
     this.changeParameters = this.changeParameters.bind(this);
   }
 
+  sleep(milliseconds) {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+      currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
+  }
+
   changeParameters(perp, lr) {
-    setTimeout(function() {
-      this.setState({
-        perplexity: perp,
-        learningrate: lr
-      });
-      let ordering = this.props.allOrderings.reduce((prev, curr) =>
-        Math.abs(curr[1].perp - perp) <= Math.abs(prev[1].perp - perp) &&
-        Math.abs(curr[1].lr - lr) <= Math.abs(prev[1].lr - lr)
-          ? curr
-          : prev
-      );
-      this.props.selectOrdering(ordering[0]);
-    }, 2000);
+    this.setState({
+      perplexity: perp,
+      learningrate: lr
+    });
+    let ordering = this.props.allOrderings.reduce((prev, curr) =>
+      Math.abs(curr[1].perp - perp) <= Math.abs(prev[1].perp - perp) &&
+      Math.abs(curr[1].lr - lr) <= Math.abs(prev[1].lr - lr)
+        ? curr
+        : prev
+    );
+    this.sleep(1500);
+    this.props.selectOrdering([ordering[0], ordering[0]]);
   }
 
   getPointLocation(pt, scale) {
@@ -43,7 +50,9 @@ export default class TechnicalUiView extends React.Component {
     let newY = y * scale * 0.9 + 20;
     return newX + " " + newY;
   }
+
   renderHover(hovered, mouseLocation) {
+    console.log(hovered);
     return (
       hovered && (
         <HoverPopover
