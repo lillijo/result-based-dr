@@ -1,7 +1,7 @@
 import sys
 import os
 from resultcollection import ResultCollection
-#from get_pipeline_results import get_pipeline_results 
+#from get_pipeline_results import get_pipeline_results
 
 def main(argv):
     if len(argv) > 0:
@@ -17,7 +17,7 @@ def main(argv):
         #     r.save_as_files()
         else:
             print("to get help use --help")
-    elif not os.path.isfile('../src/assets/current_dump.json'):
+    elif not os.path.isfile('all_results_with_measures.json'):
         r = ResultCollection(create=True)
         r.save_as_files()
     else:
