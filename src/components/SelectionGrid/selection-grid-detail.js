@@ -170,7 +170,7 @@ export default class SelectionGridDetail extends React.Component {
             className={style.chooseButton}
             onClick={() => {
               this.props.selectOrdering(selectedState);
-              this.dialogOpened();
+              this.props.changeGraph("0");
             }}
           >
             Auswählen
@@ -184,7 +184,7 @@ export default class SelectionGridDetail extends React.Component {
             className={style.chooseButton}
             onClick={() => {
               this.props.selectOrdering([selectedState[0], selectedState[0]]);
-              this.dialogOpened();
+              this.props.changeGraph("0");
             }}
           >
             Abbrechen

@@ -22,7 +22,7 @@ class EmbeddingResult():
             self.name = name
             self.seed = name[-9:-8]
             self.projects = preprocessing.minmax_scale([i["mappoint"] for i in data]).tolist()
-            self._entropies = [i['entropy'] for i in data]
+            self.entropies = [i['entropy'] for i in data]
             self.classes = [i['project_data']['fb'] for i in data]
             self.ids =  [i['project_data']['id'] for i in data]
             self.titles =  [i['project_data']['title'] for i in data]
@@ -32,7 +32,7 @@ class EmbeddingResult():
             self.name = None
             self.seed = None
             self.projects = None
-            self._entropies = None
+            self.entropies = None
             self.classes = None
             self.ids =  None
             self.titles =  None
@@ -78,7 +78,7 @@ class EmbeddingResult():
 
     def compute_uncertainty(self):
         ps = np.array(self.projects)
-        vals = self._entropies
+        vals = self.entropies
         grid_x, grid_y = np.mgrid[np.min(ps[:,0]):np.max(ps[:,0]):50*1j,
                                   np.min(ps[:,1]):np.max(ps[:,1]):50*1j]
         c = griddata(np.array(ps), np.array(vals[:len(ps)]), (grid_x, grid_y), method='linear', fill_value=np.min(vals[:len(ps)]))

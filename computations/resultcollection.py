@@ -37,17 +37,17 @@ class ResultCollection():
                 for dump in self.dumps:
                     dump.compute_all_measures(firstG,firstP,21)
                 print("all measures computed")
-                save_file([i.get_dump() for i in self.dumps],'currentCombinedMeasures.json' )
+                save_file([i.get_dump() for i in self.dumps],'all_results_with_measures.json' )
                 print('measures saved')
             else:
-                print('there are no scatter plots to be found in pipeline-results. The IKON results can be computed by moving and executing `get_pipeline_results.py` in the IKON topicextraction')
+                print('there are no scatter plots to be found in pipeline-results. The IKON results can be computed with `get_pipeline_results.py` in the IKON backends topicextraction')
         else:
             print("measures were already saved")
 
 
     def create_sampled_dump(self):
         if len(self.dumps) == 0:
-            with open('currentCombinedMeasures.json') as json_file:
+            with open('all_results_with_measures.json') as json_file:
                 self.dumps = []
                 dumps = json.load(json_file)
                 for i in dumps:
@@ -64,7 +64,7 @@ class ResultCollection():
         print('samples saved')
 
     def create_uncertainties_dump(self):
-        if self.create:
+        if not os.path.exists('../src/assets/uncertainties.json' ):
             uncertainties =[i.compute_uncertainty() for i in self.samples]
             save_file(uncertainties,'../src/assets/uncertainties.json' )
             print('uncertainties saved')

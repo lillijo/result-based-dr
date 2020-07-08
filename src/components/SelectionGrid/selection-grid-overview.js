@@ -118,7 +118,10 @@ export default class SelectionGridOverview extends React.Component {
             });
           }}
         >
-          Perplexity
+          <p>
+            Perplexity
+            <span className={style.questionMark}>?</span>
+          </p>
         </div>
         <div className={style.sliderWrapper}>
           <span className={style.sliderText}>Größe des Gitters:</span>
@@ -153,6 +156,7 @@ export default class SelectionGridOverview extends React.Component {
           }}
         >
           t-SNE Measure
+          <span className={style.questionMark}>?</span>
         </div>
         {this.renderHover(this.state.hovered, this.state.mouseLocation)}
       </div>

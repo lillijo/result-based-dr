@@ -62,6 +62,7 @@
 .yAxis {
   cursor: pointer;
   color: #888;
+  fill: #888;
   transform: rotate(-90deg);
   position: absolute;
 }
@@ -69,6 +70,13 @@
 .xAxis:hover,
 .yAxis:hover {
   color: #aaa;
+}
+
+.questionMark {
+  color: #fff;
+  font-weight: bold;
+  font-size: 120%;
+  margin-left: 5px;
 }
 
 .sliderWrapper {
