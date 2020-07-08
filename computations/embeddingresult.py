@@ -59,6 +59,7 @@ class EmbeddingResult():
         self.classes = dump['classes']
         self.ids = dump['ids']
         self.titles = dump['titles']
+        self.entropies = dump['entropies']
         self.outlying_measure = dump['outlying_measure']
         self.skewed_measure = dump['skewed_measure']
         self.clumpy_measure = dump['clumpy_measure']
