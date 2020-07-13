@@ -149,7 +149,7 @@ const mapStateToProps = state => {
     isClicked,
     isHovered,
     projectsMaxSizing,
-    selectedOrdering
+    selectedState
   } = state.main;
 
   let clusterDataForView = [];
@@ -194,7 +194,7 @@ const mapStateToProps = state => {
     isProjectHovered: isHovered.project,
     projectsMaxSizing: projectsMaxSizing,
     filteredProjects: projectsForView,
-    selectedOrdering: selectedOrdering
+    selectedState: selectedState
   };
 };
 

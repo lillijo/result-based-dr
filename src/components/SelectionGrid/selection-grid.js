@@ -10,15 +10,16 @@ import {
 
 const mapStateToProps = state => {
   const selectedOrderingData =
-    state.main.orderings[state.main.selectedOrdering[1]];
+    state.main.orderings[state.main.selectedState[1]];
   const allOrderings = state.main.orderings.map((ordering, index) => [
     index,
     ordering
   ]);
   const size = state.main.gridSize;
   const samples = allOrderings
-    .sort((a, b) => (a[1].tsne_measure < b[1].tsne_measure ? 1 : -1))
-    .splice(0, size * size);
+    .sort((a, b) => (a[1].stability_measure < b[1].stability_measure ? 1 : -1))
+    .splice(0, size * size)
+    .sort((a, b) => (a[1].tsne_measure < b[1].tsne_measure ? 1 : -1));
   let grid = [];
   while (grid.length < size) {
     grid.push(
@@ -30,7 +31,7 @@ const mapStateToProps = state => {
     size: size,
     allOrderings: grid,
     selectedOrderingData: selectedOrderingData,
-    selectedOrdering: state.main.selectedOrdering,
+    selectedState: state.main.selectedState,
     isDataProcessed: state.main.isDataProcessed,
     isTouch: isTouchMode(state)
   };

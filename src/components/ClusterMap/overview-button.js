@@ -17,13 +17,13 @@ const OverviewButton = props => {
         width: "160px",
         zIndex: 99
       }}
-      data-intro="Overview"
-      data-step="7"
-      id="overviewbutton"
     >
       <p
         className={style.buttonOverview}
         onClick={() => dispatch(changeGraph("3"))}
+        data-intro="Durch diesen Knopf gelangt man in eine Ansicht, um eine Vielzahl anderer möglicher Anordnungen zu sehen und eine neue auszuwählen."
+        data-step="7"
+        id="overviewbutton"
       >
         <OrderingIcon className={style.orderingIcon} />
         Anordnung auswählen
@@ -31,6 +31,9 @@ const OverviewButton = props => {
       <p
         className={style.buttonOverview}
         onClick={() => dispatch(changeGraph("4"))}
+        data-intro="Wenn man eine neue Anordnung durch verändern der technischen Parameter erhalten möchte, kann man das in dieser Ansicht tun."
+        data-step="8"
+        id="technicalbutton"
       >
         Technische Parameterauswahl
       </p>

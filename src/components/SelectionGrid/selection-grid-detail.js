@@ -1,5 +1,4 @@
 import React from "react";
-import { Dialog } from "@blueprintjs/core";
 import style from "./selection-grid.module.css";
 import HoverPopover from "../HoverPopover/HoverPopover";
 import { ReactComponent as SelectedIcon } from "../../assets/Selected-Project.svg";
@@ -17,28 +16,12 @@ export default class SelectionGridDetail extends React.Component {
       selectDialogIsOpen: false
     };
     this.renderHover = this.renderHover.bind(this);
-    this.dialogOpened = this.dialogOpened.bind(this);
-    this.dialogClosed = this.dialogClosed.bind(this);
-    this.dialogOption = this.dialogOption.bind(this);
   }
   getPointLocation(pt, scale) {
     let [x, y] = pt;
     let newX = (x + 0.1) * scale;
     let newY = (y + 0.1) * scale;
     return newX + " " + newY;
-  }
-
-  dialogOpened() {
-    this.props.selectDialogOpened();
-    this.setState({ selectDialogIsOpen: true });
-  }
-  dialogClosed() {
-    this.setState({ selectDialogIsOpen: false });
-  }
-
-  dialogOption(x) {
-    this.props.changeGraph(x);
-    this.setState({ selectDialogIsOpen: false });
   }
 
   renderHover(hovered, mouseLocation) {
@@ -73,37 +56,11 @@ export default class SelectionGridDetail extends React.Component {
   render() {
     const { selectedOrdering, selectedState, width } = this.props;
     const scale = width * 0.8;
-    if (!selectedOrdering) {
+    if (!selectedState) {
       return <div />;
     }
     return (
       <div className={style.selectionDetailWrapper}>
-        <Dialog
-          isOpen={this.state.selectDialogIsOpen}
-          onClose={this.dialogClosed}
-          className={style.bp3Dialog}
-        >
-          <div className={style.selectDialog}>
-            <div className={style.selectButtons}>
-              <span
-                className={style.selectButton}
-                onClick={() => this.dialogOption("0")}
-              >
-                Zurück in die allgemeine Visualisierung (WISSEN-View)
-              </span>
-              <span
-                className={style.selectButton}
-                onClick={() => this.dialogOption("3")}
-              >
-                In der Grid-View bleiben
-              </span>
-            </div>
-
-            <div className={style.closeSelect} onClick={this.dialogClosed}>
-              Fenster schließen
-            </div>
-          </div>
-        </Dialog>
         <svg height={width} width={width} fill="transparent">
           <rect
             stroke="#222"
@@ -117,6 +74,7 @@ export default class SelectionGridDetail extends React.Component {
               transform={
                 "translate(" + this.getPointLocation(project, scale) + ")"
               }
+              style={{ transition: "transform 1s" }}
               key={i + "punkt"}
               onMouseOver={evt => {
                 this.setState({
@@ -184,7 +142,6 @@ export default class SelectionGridDetail extends React.Component {
             className={style.chooseButton}
             onClick={() => {
               this.props.selectOrdering([selectedState[0], selectedState[0]]);
-              this.props.changeGraph("0");
             }}
           >
             Abbrechen

@@ -112,7 +112,7 @@ export const initialState = {
   uncertaintyOn: false,
   uncertaintyHighlighted: false,
   orderings: locations,
-  selectedOrdering: ["147", "147"],
+  selectedState: ["23", "23"],
   gridSize: 7,
   isDataLoaded: { data: false, samples: false },
   isDataProcessed: false,
@@ -329,8 +329,8 @@ const processAllData = state => {
     (project, index) => ({
       ...project,
       mappoint: [
-        state.orderings[state.selectedOrdering[1]].projects[index][0],
-        state.orderings[state.selectedOrdering[1]].projects[index][1]
+        state.orderings[state.selectedState[1]].projects[index][0],
+        state.orderings[state.selectedState[1]].projects[index][1]
       ]
     })
   );
@@ -662,7 +662,7 @@ const selectVis = (state, action) => {
       Math.max(...processedProjects.map(p => Math.abs(p.mappoint[0]))),
       Math.max(...processedProjects.map(p => Math.abs(p.mappoint[1])))
     ],
-    selectedOrdering: action.value
+    selectedState: action.value
   };
 };
 

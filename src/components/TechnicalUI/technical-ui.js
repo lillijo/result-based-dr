@@ -5,7 +5,7 @@ import { changeGraph, selectVis } from "../../store/actions/actions";
 import orderings from "../../assets/current_dump.json";
 
 const mapStateToProps = state => {
-  const selectedOrderingData = orderings[state.main.selectedOrdering[1]];
+  const selectedOrderingData = orderings[state.main.selectedState[1]];
   const allOrderings = orderings.map((ordering, index) => [index, ordering]);
 
   return {

@@ -14,8 +14,8 @@ export default class TechnicalUiView extends React.Component {
     this.state = {
       hovered: false,
       mouseLocation: [0, 0],
-      perplexity: 5,
-      learningrate: 10
+      perplexity: props.selectedOrdering.perp,
+      learningrate: props.selectedOrdering.lr
     };
     this.renderHover = this.renderHover.bind(this);
     this.changeParameters = this.changeParameters.bind(this);
@@ -40,7 +40,7 @@ export default class TechnicalUiView extends React.Component {
         ? curr
         : prev
     );
-    this.sleep(1500);
+    //this.sleep(1500);
     this.props.selectOrdering([ordering[0], ordering[0]]);
   }
 
@@ -106,6 +106,7 @@ export default class TechnicalUiView extends React.Component {
               transform={
                 "translate(" + this.getPointLocation(project, scaling) + ")"
               }
+              style={{ transition: "transform 1s" }}
               key={i + "punkt"}
             >
               <UnselectedIcon
@@ -149,6 +150,11 @@ export default class TechnicalUiView extends React.Component {
               labelStepSize={4}
               stepSize={1}
               value={this.state.perplexity}
+              onChange={value =>
+                this.setState({
+                  perplexity: value
+                })
+              }
               onRelease={value =>
                 this.changeParameters(value, this.state.learningrate)
               }
@@ -164,6 +170,11 @@ export default class TechnicalUiView extends React.Component {
               labelStepSize={20}
               stepSize={10}
               value={this.state.learningrate}
+              onChange={value =>
+                this.setState({
+                  learningrate: value
+                })
+              }
               onRelease={value =>
                 this.changeParameters(this.state.perplexity, value)
               }

@@ -10,7 +10,8 @@ export default class SelectionGridOverview extends React.Component {
     this.state = {
       hovered: false,
       mouseLocation: [0, 0],
-      hoveredId: false
+      hoveredId: false,
+      gridsize: props.size
     };
     this.renderHover = this.renderHover.bind(this);
   }
@@ -45,9 +46,9 @@ export default class SelectionGridOverview extends React.Component {
   }
 
   render() {
-    const { selectedOrdering, selectOrdering, data, width, size } = this.props;
+    const { selectedState, selectOrdering, data, width, size } = this.props;
 
-    if (!selectedOrdering.length > 1 || !width || !data[0].length > 1) {
+    if (!selectedState.length > 1 || !width || !data[0].length > 1) {
       return <div />;
     }
     return (
@@ -62,7 +63,7 @@ export default class SelectionGridOverview extends React.Component {
                   height={(width / size) * 0.98}
                   width={(width / size) * 0.98}
                   stroke={
-                    ord[0] === parseInt(selectedOrdering[1])
+                    ord[0] === parseInt(selectedState[1])
                       ? "#afca0b"
                       : this.state.hoveredId === ord[0]
                       ? "#888"
@@ -70,7 +71,7 @@ export default class SelectionGridOverview extends React.Component {
                   }
                   fill="transparent"
                   onClick={() =>
-                    selectOrdering([selectedOrdering[0], ord[0].toString()])
+                    selectOrdering([selectedState[0], ord[0].toString()])
                   }
                   cursor="POINTER"
                   onMouseOver={evt => {
@@ -131,14 +132,15 @@ export default class SelectionGridOverview extends React.Component {
             max={12}
             id="size"
             labelStepSize={3}
-            value={this.props.size}
+            value={this.state.gridsize}
+            onChange={value => this.setState({ gridsize: value })}
             onRelease={value => this.props.changeSize(value)}
           />
         </div>
         <div
           className={style.yAxis}
           style={{
-            left: "20px",
+            left: "10px",
             top: width / 2 + 65 + "px"
           }}
           onMouseOver={evt => {

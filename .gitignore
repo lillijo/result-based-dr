@@ -30,4 +30,3 @@ computations/*.json
 computations/*.csv
 computations/*.txt
 computations/pipeline-results/*.txt
-computations/pipeline-results-extreme

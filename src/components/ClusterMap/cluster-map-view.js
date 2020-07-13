@@ -122,7 +122,7 @@ export default class ClusterMapView extends React.Component {
       filteredProjects,
       labels,
       filteredLabels,
-      selectedOrdering,
+      selectedState,
       clusterData
     } = this.props;
     this.scale = Math.min(height, width);
@@ -170,7 +170,7 @@ export default class ClusterMapView extends React.Component {
               clusterX={clusterPosX}
               clusterY={clusterPosY}
               uncertaintyHighlighted={uncertaintyHighlighted}
-              selectedOrdering={selectedOrdering}
+              selectedState={selectedState}
             />
           )}
           <g>
