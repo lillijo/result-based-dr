@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import SelectionGridView from "./selection-grid-view";
-import { isTouchMode } from "../../util/utility";
+import { isTouchMode, applyFilters } from "../../util/utility";
 import {
   changeGraph,
   selectVis,
@@ -16,24 +16,30 @@ const mapStateToProps = state => {
     ordering
   ]);
   const size = state.main.gridSize;
-  const samples = allOrderings
-    .sort((a, b) => (a[1].stability_measure < b[1].stability_measure ? 1 : -1))
-    .splice(0, size * size)
-    .sort((a, b) => (a[1].tsne_measure < b[1].tsne_measure ? 1 : -1));
+  allOrderings.sort((a, b) => (a[1].perplexity < b[1].perplexity ? 1 : -1));
+  let samples = [];
+  let step = allOrderings.length / (size * size);
+  for (let i = 0; i < size * size; i++) {
+    console.log(Math.round(step * i, 0));
+    samples.push(allOrderings[Math.round(step * i, 0)]);
+  }
+  samples.sort((a, b) => (a[1].tsne_measure < b[1].tsne_measure ? 1 : -1));
   let grid = [];
   while (grid.length < size) {
     grid.push(
       samples.splice(0, size).sort((a, b) => (a[1].perp > b[1].perp ? 1 : -1))
     );
   }
-
   return {
     size: size,
     allOrderings: grid,
     selectedOrderingData: selectedOrderingData,
     selectedState: state.main.selectedState,
     isDataProcessed: state.main.isDataProcessed,
-    isTouch: isTouchMode(state)
+    isTouch: isTouchMode(state),
+    filtered: applyFilters(state.main.projects, state.main.filters).map(
+      p => p.fulltext
+    )
   };
 };
 

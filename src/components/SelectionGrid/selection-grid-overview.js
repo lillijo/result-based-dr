@@ -46,9 +46,21 @@ export default class SelectionGridOverview extends React.Component {
   }
 
   render() {
-    const { selectedState, selectOrdering, data, width, size } = this.props;
+    const {
+      selectedState,
+      selectOrdering,
+      data,
+      width,
+      size,
+      filtered
+    } = this.props;
 
-    if (!selectedState.length > 1 || !width || !data[0].length > 1) {
+    if (
+      !selectedState.length > 1 ||
+      !width ||
+      !data[0].length > 1 ||
+      !filtered
+    ) {
       return <div />;
     }
     return (
@@ -57,7 +69,12 @@ export default class SelectionGridOverview extends React.Component {
           <span key={reihe[0][0] + "reihe"}>
             {reihe.map(ord => (
               <svg key={ord[0]} height={width / size} width={width / size}>
-                <Scatterplot singleOrdering={ord} width={width} size={size} />
+                <Scatterplot
+                  singleOrdering={ord}
+                  filtered={filtered}
+                  width={width}
+                  size={size}
+                />
 
                 <rect
                   height={(width / size) * 0.98}
@@ -129,7 +146,7 @@ export default class SelectionGridOverview extends React.Component {
           <Slider
             className={style.RangeSliderStyle}
             min={3}
-            max={12}
+            max={10}
             id="size"
             labelStepSize={3}
             value={this.state.gridsize}
@@ -146,7 +163,7 @@ export default class SelectionGridOverview extends React.Component {
           onMouseOver={evt => {
             this.setState({
               hovered:
-                "Die Verteilung der Punkte in den einzelnen Plots ist in einer Zeile ähnlich, während sie sich über die Zeilen hinweg verändert.",
+                "Die Verteilung der Punkte in den einzelnen Plots ist in einer Zeile ähnlicher, während sie sich über die Zeilen hinweg stärker verändert.",
               mouseLocation: [140, width / 2 + 65]
             });
           }}

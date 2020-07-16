@@ -18,7 +18,7 @@ export default class Scatterplot extends React.Component {
   }
 
   render() {
-    const { singleOrdering, width, size } = this.props;
+    const { singleOrdering, width, size, filtered } = this.props;
 
     if (!singleOrdering || !width) {
       return <svg />;
@@ -44,7 +44,11 @@ export default class Scatterplot extends React.Component {
             y="0"
             viewBox="0 0 100 100"
             stroke={"transparent"}
-            fill={getFieldColor(singleOrdering[1].classes[i])}
+            fill={
+              filtered.find(x => x === singleOrdering[1].ids[i])
+                ? getFieldColor(singleOrdering[1].classes[i])
+                : "transparent"
+            }
           />
         ))}
       </svg>

@@ -20,6 +20,7 @@ class SelectionGridView extends React.Component {
             width={width}
             size={this.props.size}
             changeSize={this.props.changeGridSize}
+            filtered={this.props.filtered}
           />
           <SelectionGridDetail
             className={style.sideWrapper}
@@ -29,6 +30,7 @@ class SelectionGridView extends React.Component {
             width={width}
             selectDialogOpened={this.props.selectDialogOpened}
             changeGraph={this.props.changeGraph}
+            filtered={this.props.filtered}
           />
         </div>
       </div>

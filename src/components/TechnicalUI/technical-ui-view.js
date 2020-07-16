@@ -21,14 +21,6 @@ export default class TechnicalUiView extends React.Component {
     this.changeParameters = this.changeParameters.bind(this);
   }
 
-  sleep(milliseconds) {
-    const date = Date.now();
-    let currentDate = null;
-    do {
-      currentDate = Date.now();
-    } while (currentDate - date < milliseconds);
-  }
-
   changeParameters(perp, lr) {
     this.setState({
       perplexity: perp,
@@ -40,7 +32,6 @@ export default class TechnicalUiView extends React.Component {
         ? curr
         : prev
     );
-    //this.sleep(1500);
     this.props.selectOrdering([ordering[0], ordering[0]]);
   }
 
@@ -106,7 +97,7 @@ export default class TechnicalUiView extends React.Component {
               transform={
                 "translate(" + this.getPointLocation(project, scaling) + ")"
               }
-              style={{ transition: "transform 1s" }}
+              style={{ transition: "transform 2s", transitionDelay: "1s" }}
               key={i + "punkt"}
             >
               <UnselectedIcon

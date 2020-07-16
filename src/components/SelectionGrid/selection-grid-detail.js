@@ -54,9 +54,9 @@ export default class SelectionGridDetail extends React.Component {
   }
 
   render() {
-    const { selectedOrdering, selectedState, width } = this.props;
+    const { selectedOrdering, selectedState, width, filtered } = this.props;
     const scale = width * 0.8;
-    if (!selectedState) {
+    if (!selectedState || !filtered) {
       return <div />;
     }
     return (
@@ -102,7 +102,11 @@ export default class SelectionGridDetail extends React.Component {
                 viewBox="0 0 100 100"
                 cursor="POINTER"
                 stroke={"transparent"}
-                fill={getFieldColor(selectedOrdering.classes[i])}
+                fill={
+                  filtered.find(x => x === selectedOrdering.ids[i])
+                    ? getFieldColor(selectedOrdering.classes[i])
+                    : "transparent"
+                }
               />
               <SelectedIcon
                 width={width / 30}
@@ -114,7 +118,11 @@ export default class SelectionGridDetail extends React.Component {
                 viewBox="0 0 100 100"
                 cursor="POINTER"
                 stroke={"transparent"}
-                fill={getFieldColor(selectedOrdering.classes[i])}
+                fill={
+                  filtered.find(x => x === selectedOrdering.ids[i])
+                    ? getFieldColor(selectedOrdering.classes[i])
+                    : "#transparent"
+                }
                 style={{
                   opacity: this.state.hovered === i ? "1" : "0",
                   transition: "opacity 800ms"
