@@ -18,7 +18,7 @@ class ResultCollection():
                 projects = json.load(json_file)
                 self.dumps.append(EmbeddingResult(projects,filename))
 
-    def tsne_over_results(self,dim=1, perp=40,lr=100):
+    def tsne_over_results(self,dim=1, perp=30,lr=30):
         X = np.array([list(sum([(i.projects[j][0],i.projects[j][1] )
             for j in range(len(i.projects))], ())) for i in self.dumps])
         X_embedded = TSNE(n_components=dim,perplexity=perp,learning_rate=lr).fit_transform(X)
@@ -64,12 +64,9 @@ class ResultCollection():
         print('samples saved')
 
     def create_uncertainties_dump(self):
-        if not os.path.exists('../src/assets/uncertainties.json' ):
-            uncertainties =[i.compute_uncertainty() for i in self.samples]
-            save_file(uncertainties,'../src/assets/uncertainties.json' )
-            print('uncertainties saved')
-        else:
-            print("uncertainties were already saved")
+        uncertainties =[i.compute_uncertainty() for i in self.samples]
+        save_file(uncertainties,'../src/assets/uncertainties.json' )
+        print('uncertainties saved')
 
     def save_as_files(self):
         self.calculate_all_measures()

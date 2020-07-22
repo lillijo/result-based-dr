@@ -26,7 +26,7 @@ const OverviewButton = props => {
         id="overviewbutton"
       >
         <OrderingIcon className={style.orderingIcon} />
-        Anordnung auswählen
+        Anordnung Auswählen
       </p>
       <p
         className={style.buttonOverview}
@@ -35,7 +35,7 @@ const OverviewButton = props => {
         data-step="8"
         id="technicalbutton"
       >
-        Technische Parameterauswahl
+        Mit Technischen Parametern Auswählen
       </p>
     </div>
   );

@@ -84,7 +84,7 @@ export default class SelectionGridOverview extends React.Component {
                       ? "#afca0b"
                       : this.state.hoveredId === ord[0]
                       ? "#888"
-                      : "#222"
+                      : "#333"
                   }
                   fill="transparent"
                   onClick={() =>
@@ -125,7 +125,7 @@ export default class SelectionGridOverview extends React.Component {
           onMouseOver={evt => {
             this.setState({
               hovered:
-                "Die Plots in den Zeilen sind nach ihrer Perplexity geordnet. Eine niedrige Perplexity (links) bedeutet, dass relativ kleine enge Gruppierungen entstehen. Eine hohe Perplexity deutet auf eine eher gleichmäßige Verteilung hin.",
+                "Die Plots in den Zeilen sind nach ihrer Perplexity geordnet. Perplexity ist ein Parameter, den man variieren kann, wenn man mit t-SNE dem hier genutzten Algorithmus für Dimensionalitätsreduktion unterschiedliche Visualisierungen der Ähnlichkeitsanordnung produziert. Eine niedrige Perplexity (links) bedeutet, dass relativ kleine enge Gruppierungen entstehen. Eine hohe Perplexity deutet auf eine eher gleichmäßige Verteilung hin.",
               mouseLocation: [width / 2 + 180, width + 65]
             });
           }}
@@ -163,7 +163,7 @@ export default class SelectionGridOverview extends React.Component {
           onMouseOver={evt => {
             this.setState({
               hovered:
-                "Die Verteilung der Punkte in den einzelnen Plots ist in einer Zeile ähnlicher, während sie sich über die Zeilen hinweg stärker verändert.",
+                "Die vertikale Sortierung der Visualisierungen wird durch deren Ähnlichkeit der Anordnung zueinander bestimmt. So sollten die Punkte bei zwei Nachbarn in einer ähnlichen Position sein, während sie bei weit entfernten Visualisierungen in der gegenüberliegenden Ecke sein können. Die Verteilung der Punkte in den einzelnen Plots ist in der einzelnen Zeile ähnlicher, während sie sich über die Zeilen hinweg stärker verändert.",
               mouseLocation: [140, width / 2 + 65]
             });
           }}
