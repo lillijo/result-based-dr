@@ -20,7 +20,6 @@ const mapStateToProps = state => {
   let samples = [];
   let step = allOrderings.length / (size * size);
   for (let i = 0; i < size * size; i++) {
-    console.log(Math.round(step * i, 0));
     samples.push(allOrderings[Math.round(step * i, 0)]);
   }
   samples.sort((a, b) => (a[1].tsne_measure < b[1].tsne_measure ? 1 : -1));

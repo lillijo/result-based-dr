@@ -5,7 +5,7 @@ import style from "./selection-grid.module.css";
 
 class SelectionGridView extends React.Component {
   render() {
-    const width = window.innerWidth * 0.42;
+    const width = window.innerWidth * 0.41;
     if (!this.props.isDataProcessed) {
       return <div />;
     }

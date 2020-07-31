@@ -150,6 +150,7 @@ export default class SelectionGridDetail extends React.Component {
             className={style.chooseButton}
             onClick={() => {
               this.props.selectOrdering([selectedState[0], selectedState[0]]);
+              this.props.changeGraph("0");
             }}
           >
             Abbrechen

@@ -112,7 +112,7 @@ export const initialState = {
   uncertaintyOn: false,
   uncertaintyHighlighted: false,
   orderings: locations,
-  selectedState: ["23", "23"],
+  selectedState: ["77", "77"],
   gridSize: 7,
   isDataLoaded: { data: false, samples: false },
   isDataProcessed: false,
