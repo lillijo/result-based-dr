@@ -1,10 +1,9 @@
 import React from "react";
 import style from "./selection-grid.module.css";
 import HoverPopover from "../HoverPopover/HoverPopover";
-import { ReactComponent as SelectedIcon } from "../../assets/Selected-Project.svg";
-import { ReactComponent as UnselectedIcon } from "../../assets/Unselected-Project.svg";
+import { ReactComponent as SelectedIcon } from "../../assets/Selected-Instance.svg";
+import { ReactComponent as UnselectedIcon } from "../../assets/Unselected-Instance.svg";
 import { ReactComponent as Tick } from "../../assets/tick.svg";
-import { ReactComponent as Cross } from "../../assets/cross.svg";
 import { getFieldColor } from "../../util/utility";
 
 export default class SelectionGridDetail extends React.Component {
@@ -12,8 +11,7 @@ export default class SelectionGridDetail extends React.Component {
     super();
     this.state = {
       hovered: false,
-      mouseLocation: [0, 0],
-      selectDialogIsOpen: false
+      mouseLocation: [0, 0]
     };
     this.renderHover = this.renderHover.bind(this);
   }
@@ -54,9 +52,9 @@ export default class SelectionGridDetail extends React.Component {
   }
 
   render() {
-    const { selectedOrdering, selectedState, width, filtered } = this.props;
+    const { selectedOrdering, selectedState, width } = this.props;
     const scale = width * 0.8;
-    if (!selectedState || !filtered) {
+    if (!selectedState) {
       return <div />;
     }
     return (
@@ -69,10 +67,10 @@ export default class SelectionGridDetail extends React.Component {
             width={width}
             fill="transparent"
           />
-          {selectedOrdering.projects.map((project, i) => (
+          {selectedOrdering.projects.map((instance, i) => (
             <g
               transform={
-                "translate(" + this.getPointLocation(project, scale) + ")"
+                "translate(" + this.getPointLocation(instance, scale) + ")"
               }
               style={{ transition: "transform 1s" }}
               key={i + "punkt"}
@@ -102,11 +100,7 @@ export default class SelectionGridDetail extends React.Component {
                 viewBox="0 0 100 100"
                 cursor="POINTER"
                 stroke={"transparent"}
-                fill={
-                  filtered.find(x => x === selectedOrdering.ids[i])
-                    ? getFieldColor(selectedOrdering.classes[i])
-                    : "transparent"
-                }
+                fill={getFieldColor(selectedOrdering.classes[i])}
               />
               <SelectedIcon
                 width={width / 30}
@@ -118,11 +112,7 @@ export default class SelectionGridDetail extends React.Component {
                 viewBox="0 0 100 100"
                 cursor="POINTER"
                 stroke={"transparent"}
-                fill={
-                  filtered.find(x => x === selectedOrdering.ids[i])
-                    ? getFieldColor(selectedOrdering.classes[i])
-                    : "#transparent"
-                }
+                fill={getFieldColor(selectedOrdering.classes[i])}
                 style={{
                   opacity: this.state.hovered === i ? "1" : "0",
                   transition: "opacity 800ms"
@@ -144,20 +134,6 @@ export default class SelectionGridDetail extends React.Component {
               style={{ marginLeft: "15px" }}
               width={width / 25}
               height={width / 25}
-            />
-          </span>
-          <span
-            className={style.chooseButton}
-            onClick={() => {
-              this.props.selectOrdering([selectedState[0], selectedState[0]]);
-              this.props.changeGraph("0");
-            }}
-          >
-            Abbrechen
-            <Cross
-              style={{ marginLeft: "15px" }}
-              width={width / 35}
-              height={width / 35}
             />
           </span>
         </div>

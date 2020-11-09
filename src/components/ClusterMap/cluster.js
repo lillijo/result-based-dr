@@ -1,37 +1,28 @@
 import React from "react";
 import ClusterDot from "./cluster-dot";
 
-/* Clusters are not visible in the current state of the visualization. Yet the projects are separated by clusters in the data structure as this might change again. */
+/* Clusters are not visible in the current state of the visualization. Yet the instances are separated by clusters in the data structure as this might change again. */
 const Cluster = props => {
-  const {
-    cluster,
-    getLocation,
-    radius,
-    highlightedProjects,
-    isTouchMode,
-    filteredProjects
-  } = props;
-  const projects = cluster.projects.map(project => ({
-    ...project,
-    point: getLocation(project.mappoint),
-    color: project.color,
-    icon: project.icon
+  const { cluster, getLocation, radius, highlightedInstances } = props;
+  const instances = cluster.instances.map(instance => ({
+    ...instance,
+    point: getLocation(instance.mappoint),
+    color: instance.color,
+    icon: instance.icon
   }));
 
   return (
     <g key={cluster.id}>
-      {projects.map((project, i) => (
+      {instances.map((instance, i) => (
         <ClusterDot
-          point={project}
-          isVisible={filteredProjects.includes(project.id)}
-          color={project.color}
-          icon={project.icon}
-          key={i + "project"}
+          point={instance}
+          color={instance.color}
+          icon={instance.icon}
+          key={i + "instance"}
           radius={radius}
-          x={project.point[0]}
-          y={project.point[1]}
-          isHighlighted={highlightedProjects.includes(project.id)}
-          isTouchMode={isTouchMode}
+          x={instance.point[0]}
+          y={instance.point[1]}
+          isHighlighted={highlightedInstances.includes(instance.id)}
         />
       ))}
     </g>

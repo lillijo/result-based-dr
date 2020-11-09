@@ -1,6 +1,6 @@
 {
-  "short_name": "MfN.projektor",
-  "name": "Visualisierung von Forschungsprojekten am Museum für Naturkunde Berlin",
+  "short_name": "Result Based DR",
+  "name": "Visualizing a selection of DR results for comparison",
   "icons": [
     {
       "src": "favicon.ico",

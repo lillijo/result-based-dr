@@ -1,10 +1,8 @@
 import { connect } from "react-redux";
 import SelectionGridView from "./selection-grid-view";
-import { isTouchMode, applyFilters } from "../../util/utility";
 import {
   changeGraph,
   selectVis,
-  selectDialogOpened,
   changeGridSize
 } from "../../store/actions/actions";
 
@@ -34,11 +32,7 @@ const mapStateToProps = state => {
     allOrderings: grid,
     selectedOrderingData: selectedOrderingData,
     selectedState: state.main.selectedState,
-    isDataProcessed: state.main.isDataProcessed,
-    isTouch: isTouchMode(state),
-    filtered: applyFilters(state.main.projects, state.main.filters).map(
-      p => p.fulltext
-    )
+    isDataProcessed: state.main.isDataProcessed
   };
 };
 
@@ -46,10 +40,7 @@ const mapDispatchToProps = dispatch => {
   return {
     changeGraph: value => dispatch(changeGraph(value)),
     changeGridSize: value => dispatch(changeGridSize(value)),
-    selectOrdering: value => dispatch(selectVis(value)),
-    selectDialogOpened: () => {
-      dispatch(selectDialogOpened());
-    }
+    selectOrdering: value => dispatch(selectVis(value))
   };
 };
 

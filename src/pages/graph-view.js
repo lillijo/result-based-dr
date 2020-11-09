@@ -1,14 +1,10 @@
 import React from "react";
 import { connect, batch } from "react-redux";
-import ClusterMap from "../../components/ClusterMap/cluster-map";
-import GeoMap from "../../components/GeoMap/geo-map";
-import TimeGraph from "../../components/TimeLine/time-line";
-import SelectionGrid from "../../components/SelectionGrid/selection-grid";
-import TechnicalUi from "../../components/TechnicalUI/technical-ui";
+import ClusterMap from "../components/ClusterMap/cluster-map";
+import SelectionGrid from "../components/SelectionGrid/selection-grid";
 import classes from "./graph-view.module.css";
-import { fetchData, fetchSampleList } from "../../store/actions/actions";
-import { appMargin, menuBarHeight } from "../../App";
-import { sideBarWidth } from "../../App";
+import { fetchData } from "../store/actions/actions";
+import { appMargin, menuBarHeight } from "../App";
 
 /* wrapper for visualization when in browser mode. Depending on state different visualizations are rendered */
 class GraphView extends React.Component {
@@ -16,11 +12,11 @@ class GraphView extends React.Component {
     super(props);
     this.margins = { top: 10, left: 10, bottom: 10, right: 30 };
     this.state = {
-      activePopover: this.props.selectedProject ? 1 : -1
+      activePopover: this.props.selectedInstance ? 1 : -1
     };
     this.changeModalHandler = this.changeModalHandler.bind(this);
     this.changeGraphHandler = this.changeGraphHandler.bind(this);
-    this.projectClickHandler = this.projectClickHandler.bind(this);
+    this.instanceClickHandler = this.instanceClickHandler.bind(this);
   }
 
   componentDidMount() {
@@ -30,14 +26,12 @@ class GraphView extends React.Component {
         window.innerWidth -
         appMargin * 2 -
         this.margins.left -
-        this.margins.right -
-        sideBarWidth
+        this.margins.right
     });
     window.addEventListener("resize", this.resize.bind(this));
     this.resize();
     batch(() => {
       this.props.fetchData();
-      this.props.fetchSampleList();
     });
   }
 
@@ -53,8 +47,7 @@ class GraphView extends React.Component {
         window.innerWidth -
         appMargin * 2 -
         this.margins.left -
-        this.margins.right -
-        sideBarWidth
+        this.margins.right
     });
   }
 
@@ -68,8 +61,8 @@ class GraphView extends React.Component {
     }
   }
 
-  projectClickHandler(project, vis) {
-    this.props.activatePopover(project, vis);
+  instanceClickHandler(instance, vis) {
+    this.props.activatePopover(instance, vis);
     this.changeModalHandler(1);
   }
 
@@ -94,30 +87,7 @@ class GraphView extends React.Component {
         break;
       case "1":
         Graph = (
-          <TimeGraph
-            id="step2"
-            height={this.state.height}
-            width={this.state.width}
-          />
-        );
-        break;
-      case "2":
-        Graph = (
-          <GeoMap
-            id="step3"
-            height={this.state.height}
-            width={this.state.width}
-          />
-        );
-        break;
-      case "3":
-        Graph = (
           <SelectionGrid height={this.state.height} width={this.state.width} />
-        );
-        break;
-      case "4":
-        Graph = (
-          <TechnicalUi height={this.state.height} width={this.state.width} />
         );
         break;
       default:
@@ -136,9 +106,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchData: () => dispatch(fetchData()),
-    fetchSampleList: () => dispatch(fetchSampleList())
+    fetchData: () => dispatch(fetchData())
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(GraphView);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(GraphView);

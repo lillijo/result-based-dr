@@ -11,9 +11,6 @@ const UncertaintyExplanation = props => {
   const dispatch = useDispatch();
   return (
     <div
-      data-intro="Als weiteres Element dieser Ansicht kann die Unsicherheits-Landschaft aktiviert werden. Da die Anordnung auf algorithmischen Schätzungen von inhaltlichen Ähnlichkeiten basiert, unterstützt dieses Element die Interpretation der Anordnung. Je heller die Färbung der Landschaft, desto sicherer ist sich der Algorithmus über die Position des jeweiligen Forschungsprojektes, und umgekehrt."
-      data-step="2"
-      id="uncertaintyLandscape"
       style={{
         position: "absolute",
         left: props.posX + "px",
@@ -31,11 +28,6 @@ const UncertaintyExplanation = props => {
           onMouseEnter={() => dispatch(highlightUncertainty(true))}
           onMouseLeave={() => dispatch(highlightUncertainty(false))}
           style={{ cursor: "POINTER" }}
-          onClick={() =>
-            window.alert(
-              "Wir setzen maschinelles Lernen ein, um Forschungsprojekte hinsichtlich inhaltlicher Ähnlichkeiten anzuordnen. Die Unsicherheitslandschaft zeigt an, wie treffend der Algorithmus die Anordnung einschätzt."
-            )
-          }
         >
           <p
             style={{
@@ -45,8 +37,8 @@ const UncertaintyExplanation = props => {
               justifyContent: "space-between"
             }}
           >
-            <span>unsicher</span>
-            <span>sicher</span>
+            <span>uncertain</span>
+            <span>certain</span>
           </p>
           <svg width="190px" height="20">
             <linearGradient id="grad1" x1="20%" y1="0%" x2="120%" y2="0%">
@@ -54,18 +46,6 @@ const UncertaintyExplanation = props => {
               <stop offset="100%" stopColor="#999" />
             </linearGradient>
             <rect width="190" height="20" fill="url(#grad1)" stroke="none" />
-          </svg>
-          <br />
-          Anordnung{" "}
-          <svg width="15" height="15">
-            <circle className={style.tooltipIcon} r="6" cx={6} cy={6} />
-            <text
-              x="3"
-              y="10"
-              style={{ cursor: "POINTER", stroke: "0e0e0e", fill: "#0e0e0e" }}
-            >
-              ?
-            </text>
           </svg>
         </div>
       )}
@@ -82,7 +62,7 @@ const UncertaintyExplanation = props => {
           checked={props.uncertaintyOn}
           onChange={() => dispatch(showUncertainty(!props.uncertaintyOn))}
         />
-        Unsicherheitslandschaft
+        uncertainty landscape
         <span className={style.checkmark}></span>
       </label>
     </div>

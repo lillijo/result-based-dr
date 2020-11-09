@@ -20,22 +20,10 @@ const OverviewButton = props => {
     >
       <p
         className={style.buttonOverview}
-        onClick={() => dispatch(changeGraph("3"))}
-        data-intro="Durch diesen Knopf gelangt man in eine Ansicht, um eine Vielzahl anderer möglicher Anordnungen zu sehen und eine neue auszuwählen."
-        data-step="7"
-        id="overviewbutton"
+        onClick={() => dispatch(changeGraph("1"))}
       >
         <OrderingIcon className={style.orderingIcon} />
-        Anordnung Auswählen
-      </p>
-      <p
-        className={style.buttonOverview}
-        onClick={() => dispatch(changeGraph("4"))}
-        data-intro="Wenn man eine neue Anordnung durch verändern der technischen Parameter erhalten möchte, kann man das in dieser Ansicht tun."
-        data-step="8"
-        id="technicalbutton"
-      >
-        Mit Technischen Parametern Auswählen
+        Show Selection
       </p>
     </div>
   );
