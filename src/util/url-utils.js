@@ -1,6 +1,5 @@
 import { history } from "../index";
 import { initialState } from "../store/reducer/reducer";
-import { topicIntToString, topicStringToInt } from "./utility";
 
 const getTupleFromIsClicked = isClicked => {
   if (isClicked.project) {
@@ -32,7 +31,6 @@ export const pushStateToUrl = newState => {
 
   let minifiedUrlData = {
     ...newUrlData,
-    t: newUrlData.t.map(f => topicStringToInt(f)),
     f: newUrlData.f
   };
   var newQueryString = "?";
@@ -63,8 +61,7 @@ export const parseStateFromUrl = urlParams => {
   }
   const urlState = JSON.parse(atob(stateString));
   const deminifiedUrlState = {
-    ...urlState,
-    t: urlState.t.map(f => topicIntToString(f))
+    ...urlState
   };
   return {
     main: {

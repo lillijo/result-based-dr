@@ -1,5 +1,5 @@
 import React from "react";
-import { getFieldColor } from "../../util/utility";
+import { getClassColor } from "../../util/utility";
 
 export default class Scatterplot extends React.Component {
   constructor(props) {
@@ -44,7 +44,7 @@ export default class Scatterplot extends React.Component {
             y="0"
             viewBox="0 0 100 100"
             stroke={"transparent"}
-            fill={getFieldColor(singleOrdering[1].classes[i])}
+            fill={getClassColor(singleOrdering[1].classes[i])}
           />
         ))}
       </svg>

@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import ClusterMapView from "./cluster-map-view";
 import { unClicked, unHovered } from "../../store/actions/actions";
-import { getFieldColor } from "../../util/utility";
+import { getClassColor } from "../../util/utility";
 
 /* instance list is divided into clusters */
 const computeClusters = instances => {
@@ -14,7 +14,7 @@ const computeClusters = instances => {
       .filter(p => p.cluster === id)
       .map(p => ({
         ...p,
-        color: getFieldColor(p.id)
+        color: getClassColor(p.class)
       }))
   }));
 };

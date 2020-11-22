@@ -1,19 +1,17 @@
 import * as actionTypes from "../actions/actionTypes";
-import locations from "../../assets/current_dump.json";
-import dump from "../../assets/test.json";
-const Flatted = require("flatted/esm");
+import orderings from "../../assets/current_dump.json";
 
 export const initialState = {
   graph: "0",
-  instances: Flatted.parse(JSON.stringify(dump)).projects,
+  instances: [],
   isHovered: null,
   isClicked: null,
   instancesMaxSizing: [0, 0],
   legendHovered: "none",
   uncertaintyOn: false,
   uncertaintyHighlighted: false,
-  orderings: locations,
-  selectedState: ["77", "77"],
+  orderings: orderings,
+  selectedState: ["0", "0"],
   gridSize: 7,
   isDataProcessed: false
 };
@@ -63,19 +61,18 @@ const reducer = (state = initialState, action) => {
 
 /* The received data is transformed in the beginning (e.g. sorted, some attributes slightly changed), the filters get their initial filling too */
 const processAllData = state => {
-  const processedInstances = state.instances.map((instance, index) => ({
-    ...instance,
-    id: instance.fulltext,
-    mappoint: [
-      state.orderings[state.selectedState[1]].projects[index][0],
-      state.orderings[state.selectedState[1]].projects[index][1]
-    ]
+  const instances = state.orderings[0].ids.map((id, i) => ({
+    id: id,
+    title: state.orderings[0].titles[i],
+    mappoint: state.orderings[0].projects[i],
+    entropy: state.orderings[0].entropies[i],
+    class: state.orderings[0].classes[i]
   }));
   const newState = {
-    instances: processedInstances,
+    instances: instances,
     instancesMaxSizing: [
-      Math.max(...processedInstances.map(p => p.mappoint[0])),
-      Math.max(...processedInstances.map(p => p.mappoint[1]))
+      Math.max(...instances.map(p => p.mappoint[0])),
+      Math.max(...instances.map(p => p.mappoint[1]))
     ]
   };
 

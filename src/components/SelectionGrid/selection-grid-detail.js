@@ -4,7 +4,7 @@ import HoverPopover from "../HoverPopover/HoverPopover";
 import { ReactComponent as SelectedIcon } from "../../assets/Selected-Instance.svg";
 import { ReactComponent as UnselectedIcon } from "../../assets/Unselected-Instance.svg";
 import { ReactComponent as Tick } from "../../assets/tick.svg";
-import { getFieldColor } from "../../util/utility";
+import { getClassColor } from "../../util/utility";
 
 export default class SelectionGridDetail extends React.Component {
   constructor(props) {
@@ -100,7 +100,7 @@ export default class SelectionGridDetail extends React.Component {
                 viewBox="0 0 100 100"
                 cursor="POINTER"
                 stroke={"transparent"}
-                fill={getFieldColor(selectedOrdering.classes[i])}
+                fill={getClassColor(selectedOrdering.classes[i])}
               />
               <SelectedIcon
                 width={width / 30}
@@ -112,7 +112,7 @@ export default class SelectionGridDetail extends React.Component {
                 viewBox="0 0 100 100"
                 cursor="POINTER"
                 stroke={"transparent"}
-                fill={getFieldColor(selectedOrdering.classes[i])}
+                fill={getClassColor(selectedOrdering.classes[i])}
                 style={{
                   opacity: this.state.hovered === i ? "1" : "0",
                   transition: "opacity 800ms"

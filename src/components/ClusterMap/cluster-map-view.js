@@ -9,7 +9,7 @@ import ClusterContoursMap from "./cluster-contours-map";
 
 const arcMarginSides = (width, scale) => Math.min(0.2 * width, 0.2 * scale);
 const arcMarginTop = (height, scale) => Math.min(0.02 * height, 0.02 * scale);
-const clusterSize = scale => 0.55 * scale;
+const clusterSize = scale => 0.65 * scale;
 const clusterPosX = (width, scale) => 0.5 * width - clusterSize(scale) / 2;
 const clusterPosY = (height, scale) => 0.5 * height - clusterSize(scale) / 2;
 const contoursSize = 50;
