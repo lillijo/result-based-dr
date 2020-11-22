@@ -29,7 +29,7 @@ cd result-based-dr/computations
 python main.py
 ```
 
-3. Drop the "test.json" file into the src/assets folder and start the prototype:
+3. Start the prototype:
 
 ```
 cd ..
