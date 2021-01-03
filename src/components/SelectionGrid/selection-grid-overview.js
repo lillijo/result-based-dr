@@ -1,7 +1,6 @@
 import React from "react";
 import style from "./selection-grid.module.css";
 import HoverPopover from "../HoverPopover/HoverPopover";
-import { Slider } from "@blueprintjs/core";
 import Scatterplot from "./selection-grid-scatterplot";
 
 export default class SelectionGridOverview extends React.Component {
@@ -14,6 +13,14 @@ export default class SelectionGridOverview extends React.Component {
       gridsize: props.size
     };
     this.renderHover = this.renderHover.bind(this);
+    this.changeGridSize = this.changeGridSize.bind(this);
+  }
+
+  changeGridSize(size) {
+    this.setState({
+      gridsize: size
+    });
+    this.props.changeSize(size);
   }
 
   renderHover(hovered, mouseLocation) {
@@ -125,16 +132,17 @@ export default class SelectionGridOverview extends React.Component {
           </p>
         </div>
         <div className={style.sliderWrapper}>
-          <span className={style.sliderText}>Größe des Gitters:</span>
-          <Slider
-            className={style.RangeSliderStyle}
+          <label className={style.sliderText} htmlFor="size">
+            Größe des Gitters: {this.state.gridsize}
+          </label>
+          <input
+            type="range"
+            className={style.sliderStyle}
             min={3}
             max={10}
             id="size"
-            labelStepSize={3}
             value={this.state.gridsize}
-            onChange={value => this.setState({ gridsize: value })}
-            onRelease={value => this.props.changeSize(value)}
+            onChange={e => this.changeGridSize(e.target.value)}
           />
         </div>
         <div

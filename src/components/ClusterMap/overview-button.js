@@ -14,17 +14,17 @@ const OverviewButton = props => {
         left: props.posX + "px",
         top: props.posY + "px",
         height: "auto",
-        width: "160px",
+        width: "180px",
         zIndex: 99
       }}
     >
-      <p
+      <div
         className={style.buttonOverview}
         onClick={() => dispatch(changeGraph("1"))}
       >
         <OrderingIcon className={style.orderingIcon} />
-        Show Selection
-      </p>
+        <p>Show Selection</p>
+      </div>
     </div>
   );
 };

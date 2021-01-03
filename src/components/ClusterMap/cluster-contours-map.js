@@ -22,8 +22,8 @@ const scaleContours = (
   const scaledCoords = coords.map(cGroup =>
     cGroup.map(c =>
       c.map(point => [
-        ((point[0] * 0.9) / contoursSize) * factor + ClusterPosX,
-        ((point[1] * 0.9) / contoursSize) * factor + ClusterPosY
+        (point[0] / contoursSize) * factor + ClusterPosX,
+        (point[1] / contoursSize) * factor + ClusterPosY
       ])
     )
   );

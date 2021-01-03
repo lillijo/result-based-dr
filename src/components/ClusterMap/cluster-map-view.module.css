@@ -80,6 +80,8 @@
   background: #1c1d1f;
   z-index: 99;
   color: #aaa;
+  font-size: 120%;
+  padding: 10px;
   font-family: IBM_Plex_Mono;
   border: 10px solid #1c1d1f;
   border-radius: 5px;

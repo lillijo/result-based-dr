@@ -33,8 +33,8 @@ const ClusterDot = props => {
         fill={"transparent"}
       />
       <SelectedIcon
-        width={(radius / 12) * scale}
-        height={(radius / 12) * scale}
+        width={(radius / 15) * scale}
+        height={(radius / 15) * scale}
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         x="0px"
@@ -49,8 +49,8 @@ const ClusterDot = props => {
         }}
       />
       <UnselectedIcon
-        width={(radius / 12) * scale}
-        height={(radius / 12) * scale}
+        width={(radius / 15) * scale}
+        height={(radius / 15) * scale}
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
         x="0px"

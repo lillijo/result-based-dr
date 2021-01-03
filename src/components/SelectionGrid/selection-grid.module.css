@@ -92,6 +92,7 @@
   margin-top: 7px;
 }
 
-.RangeSliderStyle {
+.sliderStyle {
   margin-left: 50px;
+  min-width: 100px;
 }

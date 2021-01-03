@@ -8,8 +8,8 @@ import HoverPopover from "../HoverPopover/HoverPopover";
 import ClusterContoursMap from "./cluster-contours-map";
 
 const arcMarginSides = (width, scale) => Math.min(0.2 * width, 0.2 * scale);
-const arcMarginTop = (height, scale) => Math.min(0.02 * height, 0.02 * scale);
-const clusterSize = scale => 0.65 * scale;
+const arcMarginTop = (height, scale) => Math.min(0.05 * height, 0.05 * scale);
+const clusterSize = scale => 0.8 * scale;
 const clusterPosX = (width, scale) => 0.5 * width - clusterSize(scale) / 2;
 const clusterPosY = (height, scale) => 0.5 * height - clusterSize(scale) / 2;
 const contoursSize = 50;
@@ -24,8 +24,8 @@ export default class ClusterMapView extends React.Component {
   getPointLocation = (pt, width, height) => {
     const [x, y] = pt;
     return [
-      x * 0.9 * clusterSize(this.scale) + clusterPosX(width, this.scale),
-      y * 0.9 * clusterSize(this.scale) + clusterPosY(height, this.scale)
+      x * clusterSize(this.scale) + clusterPosX(width, this.scale),
+      y * clusterSize(this.scale) + clusterPosY(height, this.scale)
     ];
   };
 
@@ -36,7 +36,7 @@ export default class ClusterMapView extends React.Component {
       let instance = this.props.clusterData
         .map(cluster => cluster.instances.find(instance => instance.id === pId))
         .find(p => p);
-      text = instance.displaytitle;
+      text = "NAME: " + instance.title + ", ID: " + instance.id;
       mouseLocation = this.getPointLocation(
         instance.mappoint,
         this.props.width,
@@ -100,9 +100,9 @@ export default class ClusterMapView extends React.Component {
           marginTop: arcMarginTop(height, scale)
         }}
       >
-        <OverviewButton posX={20} posY={height - 280} />
+        <OverviewButton posX={20} posY={0} />
         <UncertaintyExplanation
-          posX={width - 170}
+          posX={width - 200}
           posY={20}
           uncertaintyOn={uncertaintyOn}
         />

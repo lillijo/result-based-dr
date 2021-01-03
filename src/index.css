@@ -76,38 +76,5 @@ body {
 }
 
 .bp3-slider-handle > .bp3-slider-label {
-  margin-top: -50px !important;
   color: #aaa !important;
-}
-
-.introjs-button,
-.introjs-button:hover,
-.introjs-button:focus,
-.introjs-button:active {
-  color: #afca0b !important;
-  font-weight: 700 !important;
-  font-size: 14px !important;
-}
-
-.introjs-button:hover,
-.introjs-button:focus,
-.introjs-button:active {
-  border: 1px solid #afca0b !important;
-}
-
-.introjs-skipbutton {
-  color: #aaa !important;
-}
-.introjs-donebutton {
-  color: #afca0b !important;
-  border: 1px solid #afca0b !important;
-}
-.introjs-disabled {
-  color: #aaa !important;
-}
-
-.introjs-tooltipbuttons {
-  text-align: center !important;
-  display: flex;
-  justify-content: space-between !important;
 }
