@@ -36,22 +36,6 @@ export const unClicked = () => {
   };
 };
 
-/* when data=true the uncertainty landscape will be shown and the links are only visible on hover. otherwise only the links are shown.*/
-export const showUncertainty = data => {
-  return {
-    type: actionTypes.SHOW_UNCERTAINTY,
-    value: data
-  };
-};
-
-/* draws a MfN-green circle around the uncertainty landscape to highlight it, when data=true */
-export const highlightUncertainty = data => {
-  return {
-    type: actionTypes.HIGHLIGHT_UNCERTAINTY,
-    value: data
-  };
-};
-
 /* highlights all labels that fit to one point in the legend. e.g. legendKey="ktas" highlights all kta-labels*/
 export const legendHovered = legendKey => ({
   type: actionTypes.LEGEND_HOVERED,

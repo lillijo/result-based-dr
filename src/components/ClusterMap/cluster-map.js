@@ -7,26 +7,25 @@ import { getClassColor } from "../../util/utility";
 const computeClusters = instances => {
   if (!instances || instances.length === 0) return [];
 
-  const clusterIds = [...new Set(instances.map(p => p.cluster))];
-  return clusterIds.map(id => ({
-    id: id,
+  return [{
+    id: 0,
     instances: instances
-      .filter(p => p.cluster === id)
       .map(p => ({
         ...p,
         color: getClassColor(p.class)
       }))
-  }));
+  }]
 };
 /* helper functions to determine whcih elements in the visualization should b highlighted in the MfN green */
 const extractHighlightedFromState = state => {
   let highlighted = [];
   if (state.isHovered) {
-    highlighted += [state.isHovered];
+    highlighted.push(state.isHovered);
   }
   if (state.isClicked) {
-    highlighted += [state.isClicked];
+    highlighted.push(state.isClicked);
   }
+  console.log(highlighted);
   return highlighted;
 };
 
@@ -53,8 +52,6 @@ const mapStateToProps = state => {
     clusterData: clusterDataForView,
     isAnyClicked: isClicked,
     highlightedInstances: highlightedInstances,
-    uncertaintyOn: state.main.uncertaintyOn,
-    uncertaintyHighlighted: state.main.uncertaintyHighlighted,
     isInstanceHovered: isHovered,
     instancesMaxSizing: instancesMaxSizing,
     selectedState: selectedState

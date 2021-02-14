@@ -1,5 +1,5 @@
 import * as actionTypes from "../actions/actionTypes";
-import orderings from "../../assets/current_dump.json";
+import orderings from "../../assets/spotify_dump.json";
 
 export const initialState = {
   graph: "0",
@@ -8,8 +8,6 @@ export const initialState = {
   isClicked: null,
   instancesMaxSizing: [0, 0],
   legendHovered: "none",
-  uncertaintyOn: false,
-  uncertaintyHighlighted: false,
   orderings: orderings,
   selectedState: ["0", "0"],
   gridSize: 7,
@@ -40,12 +38,6 @@ const reducer = (state = initialState, action) => {
     case actionTypes.UNCLICKED:
       return unClicked(state);
 
-    case actionTypes.SHOW_UNCERTAINTY:
-      return showUncertainty(state, action);
-
-    case actionTypes.HIGHLIGHT_UNCERTAINTY:
-      return highlightUncertainty(state, action);
-
     case actionTypes.LEGEND_HOVERED:
       return legendHovered(state, action);
 
@@ -65,7 +57,6 @@ const processAllData = state => {
     id: id,
     title: state.orderings[0].titles[i],
     mappoint: state.orderings[0].projects[i],
-    entropy: state.orderings[0].entropies[i],
     class: state.orderings[0].classes[i]
   }));
   const newState = {
@@ -106,16 +97,6 @@ const unClicked = state => ({
 const legendHovered = (state, action) => ({
   ...state,
   legendHovered: action.value
-});
-
-const showUncertainty = (state, action) => ({
-  ...state,
-  uncertaintyOn: action.value
-});
-
-const highlightUncertainty = (state, action) => ({
-  ...state,
-  uncertaintyHighlighted: action.value
 });
 
 const selectVis = (state, action) => {

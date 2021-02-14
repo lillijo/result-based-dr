@@ -60,7 +60,6 @@ const ClusterDot = props => {
         stroke="#7c7c7c"
         cursor="POINTER"
       />
-      )}
     </g>
   );
 };

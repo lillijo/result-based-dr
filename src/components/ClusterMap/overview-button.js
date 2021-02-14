@@ -14,7 +14,7 @@ const OverviewButton = props => {
         left: props.posX + "px",
         top: props.posY + "px",
         height: "auto",
-        width: "180px",
+        width: "300px",
         zIndex: 99
       }}
     >

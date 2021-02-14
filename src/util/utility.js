@@ -1,14 +1,14 @@
 /* all kinds of helper functions and fixed data arrays (e.g. for ordering or colouring elements) */
 
 const classMapping = [
-  { class: 1, color: "#ad494a" },
-  { class: 2, color: "#e69e57" },
-  { class: 3, color: "#14a5b5" },
-  { class: 4, color: "#9467bd" },
-  { class: 5, color: "#fccde5" },
-  { class: 6, color: "#a6cee3" },
-  { class: 7, color: "#b2df8a" },
-  { class: 8, color: "#33a02c" },
+  { class: 'black metal', color: "#ad494a" },
+  { class: 'death metal', color: "#e69e57" },
+  { class: 'gothic metal', color: "#14a5b5" },
+  { class: 'industrial', color: "#9467bd" },
+  { class: 'industrial metal', color: "#fccde5" },
+  { class: 'metal', color: "#a6cee3" },
+  { class: 'power metal', color: "#b2df8a" },
+  { class: 'folk metal', color: "#33a02c" },
   { class: 9, color: "#fb9a99" },
   { class: 10, color: "#e31a1c" },
   { class: 11, color: "#fdbf6f" },

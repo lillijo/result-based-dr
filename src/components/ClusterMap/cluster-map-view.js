@@ -3,16 +3,13 @@ import React from "react";
 import Cluster from "./cluster";
 import style from "./cluster-map-view.module.css";
 import OverviewButton from "./overview-button";
-import UncertaintyExplanation from "./uncertainty-explanation";
 import HoverPopover from "../HoverPopover/HoverPopover";
-import ClusterContoursMap from "./cluster-contours-map";
 
 const arcMarginSides = (width, scale) => Math.min(0.2 * width, 0.2 * scale);
 const arcMarginTop = (height, scale) => Math.min(0.05 * height, 0.05 * scale);
 const clusterSize = scale => 0.8 * scale;
 const clusterPosX = (width, scale) => 0.5 * width - clusterSize(scale) / 2;
 const clusterPosY = (height, scale) => 0.5 * height - clusterSize(scale) / 2;
-const contoursSize = 50;
 
 export default class ClusterMapView extends React.Component {
   constructor(props) {
@@ -78,10 +75,7 @@ export default class ClusterMapView extends React.Component {
       onUnClicked,
       highlightedInstances,
       isAnyClicked,
-      uncertaintyOn,
-      uncertaintyHighlighted,
       isInstanceHovered,
-      selectedState,
       clusterData
     } = this.props;
     this.scale = Math.min(height, width);
@@ -101,11 +95,6 @@ export default class ClusterMapView extends React.Component {
         }}
       >
         <OverviewButton posX={20} posY={0} />
-        <UncertaintyExplanation
-          posX={width - 200}
-          posY={20}
-          uncertaintyOn={uncertaintyOn}
-        />
         <svg
           className="viz-3"
           viewBox={"0 0 " + width + " " + height}
@@ -113,18 +102,6 @@ export default class ClusterMapView extends React.Component {
           height={height}
           onClick={isAnyClicked ? onUnClicked : null}
         >
-          {uncertaintyOn && (
-            <ClusterContoursMap
-              width={width}
-              height={height}
-              contoursSize={contoursSize}
-              clusterSize={clusterSize}
-              clusterX={clusterPosX}
-              clusterY={clusterPosY}
-              uncertaintyHighlighted={uncertaintyHighlighted}
-              selectedState={selectedState}
-            />
-          )}
           <g>
             {clusterData.map(cluster => {
               return (
